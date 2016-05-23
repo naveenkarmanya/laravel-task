@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>AdminLTE 2 | Dashboard</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <!-- Bootstrap 3.3.2 -->
+        <link href="{{ asset('/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+        <!-- FontAwesome 4.3.0 -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <!-- Ionicons 2.0.0 -->
+        <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+        <!-- Theme style -->
+        <link href="{{ asset('/dist/css/AdminLTE.min.css') }}" rel="stylesheet" type="text/css" />
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+        folder instead of downloading all of them to reduce the load. -->
+        <link href="{{ asset('/dist/css/skins/_all-skins.min.css') }}" rel="stylesheet" type="text/css" />
+        <!-- iCheck -->
+        <link href="{{ asset('/plugins/iCheck/flat/blue.css') }}" rel="stylesheet" type="text/css" />
+        <!-- Morris chart -->
+        <link href="{{ asset('/plugins/morris/morris.css') }}" rel="stylesheet" type="text/css" />
+        <!-- jvectormap -->
+        <link href="{{ asset('/plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}" rel="stylesheet" type="text/css" />
+        <!-- Date Picker -->
+        <link href="{{ asset('/plugins/datepicker/datepicker3.css') }}" rel="stylesheet" type="text/css" />
+        <!-- Daterange picker -->
+        <link href="{{ asset('/plugins/daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet" type="text/css" />
+        <!-- bootstrap wysihtml5 - text editor -->
+        <link href="{{ asset('/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}" rel="stylesheet" type="text/css" />
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+        
+        <style>
+        html, body {
+            min-height: 100%;
+            padding: 0;
+            margin: 0;
+            font-family: 'Source Sans Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        iframe {
+            display: block;
+            overflow: auto;
+            border: 0;
+            margin: 0;
+            padding: 0;
+            margin: 0 auto;
+        }
+        .frame {
+            height: 49px;
+            margin: 0;
+            padding: 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .frame a {
+            color: #666;
+        }
+        .frame a:hover {
+            color: #222;
+        }
+        .frame .buttons a {
+            height: 49px;
+            line-height: 49px;
+            display: inline-block;
+            text-align: center;
+            width: 50px;
+            border-left: 1px solid #ddd;
+        }
+        .frame .brand {
+            color: #444;
+            font-size: 20px;
+            line-height: 49px;
+            display: inline-block;
+            padding-left: 10px;
+        }
+        .frame .brand small {
+            font-size: 14px;
+        }
+        a,a:hover {
+            text-decoration: none;
+        }
+        .container-fluid {
+            padding: 0;
+            margin: 0;
+        }
+        .text-muted {
+            color: #999;
+        }
+        .ad {
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background: #222;
+            background: rgba(0,0,0,0.8);
+            width: 100%;
+            color: #fff;
+            display: none;
+        }
+        #close-ad {
+            float: left;
+            margin-left: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+        
+        
+        
+    </head>
+    <body class="skin-blue sidebar-mini" data-spy="scroll" data-target=".navbar" data-offset="50">
+ <header>
+    
+    <nav class="frame" role="navigation">
+        <div class="container-fluid">
+            <a href="https://almsaeedstudio.com" class="brand">
+                Almsaeed Studio
+                <small class="text-muted hidden-xs">AdminLTE preview</small>
+            </a>
+            <div class="buttons pull-right">
+                <a class="first hidden-xs" id="display-full" href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Display Desktop - full width"><i class="fa fa-desktop fa-lg"></i></a>
+                <a class="hidden-xs" id="display-940" href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Display Tablet - 940px"><i class="fa fa-tablet fa-lg"></i></a>
+                <a class="hidden-xs" id="display-480" href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Display Phone - 480px"><i class="fa fa-mobile fa-lg"></i></a>
+                <a href="https://almsaeedstudio.com/premium" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Premium Templates"><i style="color: #F34D59" class="fa fa-tint fa-lg"></i></a>
+                <a href="https://almsaeedstudio.com/download/AdminLTE-master" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Download now"><i class="fa fa-download fa-lg"></i></a>
+                <a id="remove-frame" href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Remove frame"><i class="fa fa-times"></i></a>
+            </div>
+        </div><!-- /.container -->
+    </nav><!--/.navbar-->
+   
+</header>
+  
+ 
+        <div class="wrapper">
+            
+          
+            @include('includes.header')
+            @include('includes.sidebar')
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                    Dashboard
+                    <small>Control panel</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li class="active">Dashboard</li>
+                    </ol>
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    @yield('content')
+                </section><!-- /.content -->
+            </div><!-- /.content-wrapper -->
+            <footer class="main-footer">
+                <div class="pull-right hidden-xs">
+                    <b>Version</b> 2.0
+                </div>
+                <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+            </footer>
+        </div><!-- ./wrapper -->
+ 
+        <!-- jQuery 2.1.3 -->
+        <script src="{{ asset('/plugins/jQuery/jQuery-2.1.3.min.js') }}"></script>
+        <!-- jQuery UI 1.11.2 -->
+        <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
+        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script>
+            $.widget.bridge('uibutton', $.ui.button);
+        </script>
+        <!-- Bootstrap 3.3.2 JS -->
+        <script src="{{ asset('/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+        <!-- Morris.js charts -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+        <script src="{{ asset('/plugins/morris/morris.min.js') }}" type="text/javascript"></script>
+        <!-- Sparkline -->
+        <script src="{{ asset('/plugins/sparkline/jquery.sparkline.min.js') }}" type="text/javascript"></script>
+        <!-- jvectormap -->
+        <script src="{{ asset('/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}" type="text/javascript"></script>
+        <!-- jQuery Knob Chart -->
+        <script src="{{ asset('/plugins/knob/jquery.knob.js') }}" type="text/javascript"></script>
+        <!-- daterangepicker -->
+        <script src="{{ asset('/plugins/daterangepicker/daterangepicker.js') }}" type="text/javascript"></script>
+        <!-- datepicker -->
+        <script src="{{ asset('/plugins/datepicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+        <!-- Bootstrap WYSIHTML5 -->
+        <script src="{{ asset('/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}" type="text/javascript"></script>
+        <!-- iCheck -->
+        <script src="{{ asset('/plugins/iCheck/icheck.min.js') }}" type="text/javascript"></script>
+        <!-- Slimscroll -->
+        <script src="{{ asset('/plugins/slimScroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
+        <!-- FastClick -->
+        <script src="{{ asset('/plugins/fastclick/fastclick.min.js') }}"></script>
+        <!-- AdminLTE App -->
+        <script src="{{ asset('/dist/js/app.min.js') }}" type="text/javascript"></script>
+        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+        <script src="{{ asset('/dist/js/pages/dashboard.js') }}" type="text/javascript"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="{{ asset('/dist/js/demo.js') }}" type="text/javascript"></script>
+    </body>
+</html>

@@ -1,0 +1,36 @@
+.margintop
+{
+    margin: 30px;
+    position: relative;
+    top: 100px;
+}
+
+
+.autosuggest, .dropdown, .result{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 250px;
+}
+
+.autosuggest{
+    padding: 4px;
+    border: 1px solid #000;
+}
+
+.result{
+    width: 250px;
+    list-style: none;
+}
+
+.result li{
+    padding: 3px;
+    border: 1px solid #000;
+    border-top: 0;
+    cursor: pointer;
+}
+
+.result li:hover{
+    background: #000;
+    color: #fff;
+}
