@@ -8,15 +8,15 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('/bootstrap/css/bootstrap.min.css') }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="{{ asset('/dist/css/AdminLTE.min.css') }}">
   <!-- iCheck -->
-  <link rel="stylesheet" href="../../plugins/iCheck/square/blue.css">
+  <link rel="stylesheet" href="{{asset('/plugins/iCheck/square/blue.css') }}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,20 +34,42 @@
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 
-    @include('error/503');
+   
+    
+    
+
+
+<!--@if (count($errors) > 0)
+
+    <div class="alert alert-danger">
+        <h1>Errors</h1>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif-->
     
     
     
-    <form method="post">
-      <div class="form-group has-feedback">
-          <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-        <input type="email" class="form-control" placeholder="Email">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password">
+    
+    
+<form action="{{URL::route('registersubmit')}}" method="post" >
+    
+    <div class="form-group has-feedback">
+        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+        <input type="text" class="form-control" placeholder="Phone" id="phone" name="phone">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      <span id="phonelocation"></span>
       </div>
+    
+      <div class="form-group has-feedback">
+          
+        <input type="email" class="form-control" placeholder="User Name" id="email" name="email">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      <span id="emaillocation"></span></div>
+      
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
@@ -58,7 +80,9 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <input type="submit" class="btn btn-primary btn-block btn-flat login" value="Sign In">
+        <a href="{{URL::Route('register')}}"  ><input type="button" class="btn btn-primary btn-block btn-flat" value="BACK"></a>
+        
         </div>
         <!-- /.col -->
       </div>
@@ -73,8 +97,8 @@
     </div>
     <!-- /.social-auth-links -->
 
-    <a href="#">I forgot my password</a><br>
-    <a href="{{URL::Route('register')}}" class="text-center">Register a new membership</a>
+    <a href="{{URL::Route('forgotpassword')}}">I forgot my password</a><br>
+    <a href="{{'register'}}" class="text-center">Register a new membership</a>
 
   </div>
   <!-- /.login-box-body -->
@@ -87,6 +111,7 @@
 <script src="../../bootstrap/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="../../plugins/iCheck/icheck.min.js"></script>
+<script src='/js/Admin.js'></script>
 <script>
   $(function () {
     $('input').iCheck({

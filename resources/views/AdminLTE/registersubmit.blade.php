@@ -26,7 +26,7 @@
                     </button>
                      
                 </div>
-                 <a class="navbar-brand pull-right" href='{{URL::Route('login')}}'>BACK</a>
+                 <a class="navbar-brand pull-right" href='{{URL::Route('register')}}'>BACK</a>
                 
             </div>
         </nav>
@@ -35,24 +35,34 @@
         <div class="table-responsive">
              <table class="table">
                 <tr>
+                    <th>Full Name</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
                     <th>Phone</th>
                     <th>Email</th>
                     
                     
                 </tr>
-                @foreach ($User as $values) 
+                
+                
                 <tr>
             
-            @foreach ($values as $value => $key) 
+            @foreach ($data as $value => $key) 
        
       
         <td>{{$key}}</td>
       
         @endforeach
         </tr>
-        @endforeach
+       
             </table>
         </div>
+        </div>
+        <div class="container">
+            <button type="button"><a class="navbar-brand " href='{{URL::Route('register')}}'>Continue</a></button>
+        
+        
         </div>
  </body>
 </html>

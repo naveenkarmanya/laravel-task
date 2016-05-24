@@ -20,13 +20,30 @@ Route::get('register', array(
     'as'=>'register',
     'uses'=>'AdminController@register'
     ));
-Route::get('login', array(
+Route::post('registersubmit', array(
+    'as'=>'registersubmit',
+    'uses'=>'AdminController@registersubmit'
+    ));
+
+
+Route::post('login', array(
     'as'=>'login',
     'uses'=>'AdminController@login'
+    ));
+Route::post('loginsubmit', array(
+    'as'=>'loginsubmit',
+    'uses'=>'AdminController@loginsubmit'
+    ));
+
+Route::get('getpassword', array(
+    'as'=>'forgotpassword',
+    'uses'=>'AdminController@getpassword'
     ));
 
 Route::post('welcome', array(
     'as'=>'welcome',
     'uses'=>'AdminController@admin'
     ));
+
+
    

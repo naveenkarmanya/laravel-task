@@ -112,29 +112,7 @@
         
     </head>
     <body class="skin-blue sidebar-mini" data-spy="scroll" data-target=".navbar" data-offset="50">
- <header>
-    
-    <nav class="frame" role="navigation">
-        <div class="container-fluid">
-            <a href="https://almsaeedstudio.com" class="brand">
-                Almsaeed Studio
-                <small class="text-muted hidden-xs">AdminLTE preview</small>
-            </a>
-            <div class="buttons pull-right">
-                <a class="first hidden-xs" id="display-full" href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Display Desktop - full width"><i class="fa fa-desktop fa-lg"></i></a>
-                <a class="hidden-xs" id="display-940" href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Display Tablet - 940px"><i class="fa fa-tablet fa-lg"></i></a>
-                <a class="hidden-xs" id="display-480" href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Display Phone - 480px"><i class="fa fa-mobile fa-lg"></i></a>
-                <a href="https://almsaeedstudio.com/premium" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Premium Templates"><i style="color: #F34D59" class="fa fa-tint fa-lg"></i></a>
-                <a href="https://almsaeedstudio.com/download/AdminLTE-master" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Download now"><i class="fa fa-download fa-lg"></i></a>
-                <a id="remove-frame" href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Remove frame"><i class="fa fa-times"></i></a>
-            </div>
-        </div><!-- /.container -->
-    </nav><!--/.navbar-->
-   
-</header>
-  
- 
-        <div class="wrapper">
+  <div class="wrapper">
             
           
             @include('includes.header')
