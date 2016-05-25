@@ -13,7 +13,7 @@ $(document).ready(function () {
             $("#city").css({"color": "blue", "border": "blue solid 1px"}).html("");
 
         }
-        ;
+        
     });
     $("#state").keyup(function () {
         var State = $("#state").val();
@@ -102,6 +102,22 @@ $(document).ready(function () {
         }
 
     });
+    
+     $("#password").keyup(function () {
+        var Password = $("#password").val();
+
+        if (Password == null || Password == "")
+        {
+            $("#password").css({"color": "red", "border": "red solid 1px"});
+            $("#passwordlocation").html("Please enter your Password");
+
+        } else
+        {
+            $("#password").css({"color": "blue", "border": "blue solid 1px"}).html("");
+
+        }
+        
+    });
 
 
 
@@ -123,11 +139,12 @@ $(document).ready(function () {
 
         }
     });
-
-    $(".login").click(function (event)
+    
+        $(".login").submit(function (event)
     {
         var Email = $("#email").val();
         var Phone = $("#phone").val();
+       
         var len = $(this).val().length;
         if (Phone == null || Phone == "")
         {
@@ -140,6 +157,42 @@ $(document).ready(function () {
             $("#phonelocation").html("");
 
         }
+          if (Email == null || Email == "")
+        {
+            $("#email").css({"color": "red", "border": "red solid 1px"});
+            $("#emaillocation").html("Please enter your email address");
+            event.preventDefault();
+
+        }
+
+
+    });
+    
+    
+    
+    
+    
+
+    $("#admin").submit(function (event)
+    {
+        var Email = $("#email").val();
+
+        var Password = $("#password").val();
+        var len = $(this).val().length;
+
+        if (Password == null || Password == "")
+        {
+            $("#password").css({"color": "red", "border": "red solid 1px"});
+            $("#passwordlocation").html("Please enter your Password");
+            event.preventDefault();
+
+        } else
+        {
+            $("#passwordlocation").html("");
+
+        }
+        
+        
         if (Email == null || Email == "")
         {
             $("#email").css({"color": "red", "border": "red solid 1px"});

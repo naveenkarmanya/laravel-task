@@ -75,11 +75,7 @@
                         </div>
                         <!-- /.col -->
                     </div>
-                    <?php
-                    if (isset($Result)) {
-                        echo $Result;
-                    }
-                    ?>
+                    
 
                 </form>
 

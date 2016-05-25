@@ -45,5 +45,11 @@ Route::post('welcome', array(
     'uses' => 'AdminController@admin'
 ));
 
+Route::get('AdminLogin', 'AdminController@AdminLogin');
+Route::post('AdminData', array(
+    'as' => 'AdminData',
+    'uses' => 'AdminController@AdminData'
+));
+
 
 

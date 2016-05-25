@@ -55,7 +55,7 @@
 
 
 
-                <form action="{{URL::route('registersubmit')}}" method="post" >
+                <form action="{{URL::route('registersubmit')}}" method="post" class="login">
 
                     <div class="form-group has-feedback">
                         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
@@ -80,7 +80,7 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-xs-4">
-                            <input type="submit" class="btn btn-primary btn-block btn-flat login" value="Sign In">
+                            <input type="submit" class="btn btn-primary btn-block btn-flat " value="Sign Up">
                             <a href="{{URL::Route('register')}}"  ><input type="button" class="btn btn-primary btn-block btn-flat" value="BACK"></a>
 
                         </div>
