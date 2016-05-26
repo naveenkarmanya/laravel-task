@@ -135,9 +135,13 @@ $Userss = json_decode(json_encode($JsonSelect), true);
     }
 
     public function AdminData(Request $request) {
+         session()->regenerate();
         $Email = Input::get('email');
         $Password = Input::get('password');
         $hashed = md5($Password);
+        
+        session([ 'email' => $Email]);
+         $sessionemail['email'] = session::get('email'); 
 //        print_r($hashed);
         $User = DB::table('AdminLTE')->select('Password')->where('email', "=", $Email)->get();
 //        $User = json_decode(json_encode($User), true);
@@ -234,14 +238,124 @@ $Userss = json_decode(json_encode($JsonSelect), true);
  DB::table('Logs')->insert(['BrowserDetails' => $jsonDetails,'BrowserName'=>$yourbrowser['name'],'BrowserVersion'=>$yourbrowser['version'],'BrowserPlateform'=>$yourbrowser['platform'],'BrowserPattern'=>$yourbrowser['pattern'], 'IPAddress' => $input['ip'], 'UserName' => $Email]);
 
 
-
+$info=Session::get('Address');
 //print_r($Userss);
-        return view('welcome');
+        return view('welcome',  compact('info'));
                 } else {
                     echo "error login details";
                 }
             }
         }
     }
+    
+     public function ChangePassword() {
 
-}
+        return view('AdminLTE/ChangePassword');
+    }
+    
+    
+    public function UpdatePassword() {
+        session()->regenerate();
+
+        $OldPassword = Input::get('oldpassword');
+        $NewPassword = Input::get('newpassword');
+        $ConformPassword = Input::get('conformpassword');
+        $data['email'] = session::get('email');
+        $hashed = md5($OldPassword);
+        
+
+        $User = DB::table('AdminLTE')->select('Password')->where('email', "=", $data)->get();
+//        $User = json_decode(json_encode($User), true);
+        foreach ($User as $users) {
+            foreach ($users as $value) {
+                 
+//print_r($UpdatePass);
+//print_r($value);
+//print_r($hashed);
+    
+       
+                if ($value == $hashed) {
+                    
+    $Update = DB::table('AdminLTE')->where('email', "=", $data)->update(['Password'=>md5($NewPassword)]);
+    $UpdatePass=DB::table('AdminLTE')->select('Password')->get();
+   
+            $Result = "Succesfully inserted";
+        } else {
+
+            $Result = "<b style='color:red'>Somthing went Wrong</b>";
+        }
+            }
+        }
+
+//        Mail::send('email/PasswordNew', array('password' => $NewPassword), function($message)use($data) {
+//            $message->to($data, 'naveen')->subject('test mail');
+//        });
+    
+               
+  return view('AdminLTE/ChangePassword', compact('Result'));       
+        }
+        
+         public function Profile() {
+             session()->regenerate();
+        $FullName = Input::get('fullname');
+        $Address = Input::get('textarea');
+        $City = Input::get('city');
+        $State = Input::get('state');
+             $Phone = Input::get('phone');
+        $Email = Input::get('email');
+        
+        $data['FullName'] = session::get('FullName');
+        $data['Address'] = session::get('Address');
+        $data['City'] = session::get('City');
+        $data['State'] = session::get('State');
+        $data['Phone'] = session::get('Phone');
+        $data['email'] = session::get('email');
+        
+//        print_r ($data);
+
+        return view('AdminLTE/Profile');
+    }
+    
+        
+        
+        public function UpdateProfile() {
+            $Profiledata=DB::table('AdminLTE')->where('email','=',$Email)->get();
+        
+//        print_r ($data);
+       
+        $insert = DB::table('AdminLTE')->where('email','=',$Email)->update(['FullName' => $FullName, 'Address' => $Address, 'City' => $City, 'State' => $State, 'Phone' => $Phone, 'email' => $Email] );
+        
+        $Changedata=DB::table('AdminLTE')->where('email','=',$Email)->get();
+        
+        $Changedata= json_decode(json_encode($Changedata),true);
+        print_r($Changedata);
+        echo $Email;
+         
+        
+        if($Changedata){
+         $Result = "Succesfully inserted";
+        } else {
+
+            $Result = "<b style='color:red'>Somthing went Wrong</b>";
+        }
+
+        return view('AdminLTE/UpdateProfile',compact('Changedata','Result'));
+    }
+        
+        
+        public function Logout() {
+ session()->regenerate(); 
+        session(['Email'=>null]);
+        return Redirect::route('AdminLTE/index')
+                        ->with('logout','sucessfully logged out');
+       
+ 
+        
+    }
+    
+    
+
+    }
+    
+
+

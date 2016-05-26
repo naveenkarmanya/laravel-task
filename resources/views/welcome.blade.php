@@ -1,6 +1,17 @@
 @extends('app')
 @section('content')
 <!-- Small boxes (Stat box) -->
+
+    
+@if(isset($info))
+<input type="hidden" name="addressmap" id="addressmap" value="{{$info}}">
+
+
+@endif
+<?php
+print_r($info);
+?>
+
 <div class="row">
     <div class="col-lg-3 col-xs-6">
         <!-- small box -->
@@ -300,6 +311,37 @@
                 <button class="pull-right btn btn-default" id="sendEmail">Send <i class="fa fa-arrow-circle-right"></i></button>
             </div>
         </div>
+        
+        
+        
+        <div class="box box-info">
+            <div class="box-header">
+                <i class="fa fa-envelope"></i>
+                <h3 class="box-title">User Map</h3>
+                <!-- tools box -->
+                <div class="pull-right box-tools">
+                    <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+                </div><!-- /. tools -->
+            </div>
+            <div class="box-body">
+                <div id="googleMap" style="height:380px;"></div>
+
+            </div>
+            
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     </section><!-- /.Left col -->
     <!-- right col (We are only adding the ID to make the widgets sortable)-->
     <section class="col-lg-5 connectedSortable ui-sortable">
@@ -470,6 +512,13 @@
             </div>
           </div>
           <!-- /.box -->
+          
+          
+          
+          
+          
+          
+          
 
         </section>
 </div><!-- /.row (main row) -->
@@ -477,3 +526,4 @@
 
 
 @endsection
+

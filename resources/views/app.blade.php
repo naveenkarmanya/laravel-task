@@ -35,6 +35,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
         
+        
         <style>
         html, body {
             min-height: 100%;
@@ -108,6 +109,8 @@
             cursor: pointer;
         }
     </style>
+    
+  
         
         
         
@@ -136,6 +139,28 @@
                     @yield('content')
                 </section><!-- /.content -->
             </div><!-- /.content-wrapper -->
+            
+            
+            
+<!--            <div class="content-wrapper">
+                 Content Header (Page header) 
+                <section class="content-header">
+                    <h1>
+                    User Profile
+                    <small>Control panel</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li class="active">User Profile</li>
+                    </ol>
+                </section>
+                 Main content 
+                <section class="content">
+                    @yield('contents')
+                </section> /.content 
+            </div>-->
+            
+            
             <footer class="main-footer">
                 <div class="pull-right hidden-xs">
                     <b>Version</b> 2.0
@@ -152,6 +177,7 @@
         <script>
             $.widget.bridge('uibutton', $.ui.button);
         </script>
+        
         <!-- Bootstrap 3.3.2 JS -->
         <script src="{{ asset('/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
         <!-- Morris.js charts -->
@@ -182,5 +208,10 @@
         <script src="{{ asset('/dist/js/pages/dashboard.js') }}" type="text/javascript"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="{{ asset('/dist/js/demo.js') }}" type="text/javascript"></script>
+        <script src='/js/jquery.min.js' type="text/javascript"></script>
+        <script src="http://maps.googleapis.com/maps/api/js"></script>
+        <script src='/js/googlemap.js' type="text/javascript"></script>
+ 
+    
     </body>
 </html>

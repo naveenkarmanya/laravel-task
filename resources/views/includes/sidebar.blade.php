@@ -38,8 +38,33 @@
                     
                     </li>
                     
+                   
+                    
                 </ul>
             </li>
+        </ul>
+            <ul class="sidebar-menu">
+            <li class="active treeview">
+                <a href="#">
+                <i class="fa fa-dashboard"></i> <span>User Profile</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="active"><a href='{{'Profile'}}'><i class="fa fa-circle-o"></i> Update Profile</a>
+                    
+                    </li>
+                     <li class="active"><a href='{{'ChangePassword'}}'><i class="fa fa-circle-o"></i> Update Password</a>
+                    
+                    </li>
+                     <li class="active"><a href='{{'Logout'}}'><i class="fa fa-circle-o"></i> LOGOUT</a>
+                    
+                    </li>
+                    
+                   
+                    
+                </ul>
+            </li>
+        
+                 </ul>
           
                
                

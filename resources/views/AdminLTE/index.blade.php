@@ -37,6 +37,10 @@
                         echo "<b style='color:blue'>".$Result."</b>";
                     }
                     ?>
+                
+                @if(session()->has('logout'))
+                <div class='alert-success'>{{Session::get('logout')}}</div>
+                @endif
                 <p class="login-box-msg">Sign in to start your session</p>
 
 

@@ -45,7 +45,11 @@ Route::post('welcome', array(
     'uses' => 'AdminController@admin'
 ));
 
-Route::get('AdminLogin', 'AdminController@AdminLogin');
+Route::get('AdminLogin', array(
+    'as' => 'AdminLogin',
+    'uses' => 'AdminController@AdminLogin'
+    
+));
 Route::post('AdminData', array(
     'as' => 'AdminData',
     'uses' => 'AdminController@AdminData'
@@ -55,6 +59,37 @@ Route::get('test', array(
     'as' => 'test',
     'uses' => 'AdminController@test'
 ));
+Route::get('ChangePassword', array(
+    'as' => 'ChangePassword',
+    'uses' => 'AdminController@ChangePassword'
+    
+));
+
+Route::post('UpdatePassword', array(
+    'as' => 'UpdatePassword',
+    'uses' => 'AdminController@UpdatePassword'
+    
+));
+Route::any('Profile', array(
+    'as' => 'Profile',
+    'uses' => 'AdminController@Profile'
+    
+));
+
+
+Route::any('UpdateProfile', array(
+    'as' => 'UpdateProfile',
+    'uses' => 'AdminController@UpdateProfile'
+    
+));
+
+Route::get('Logout', array(
+    'as' => 'Logout',
+    'uses' => 'AdminController@Logout'
+    
+));
+
+
 
 
 
