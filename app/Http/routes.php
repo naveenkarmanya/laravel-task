@@ -51,5 +51,10 @@ Route::post('AdminData', array(
     'uses' => 'AdminController@AdminData'
 ));
 
+Route::get('test', array(
+    'as' => 'test',
+    'uses' => 'AdminController@test'
+));
+
 
 

@@ -21,6 +21,14 @@ class AdminController extends Controller {
     public function admin() {
         return view('welcome');
     }
+    
+    public function test() {
+        
+        $JsonSelect = DB::table('Logs')->select("*")->get();
+$Userss = json_decode(json_encode($JsonSelect), true);
+        return view('AdminLTE/getpassword',compact('Userss'));
+    }
+    
 
     public function register() {
         return view('AdminPage/register');
@@ -132,7 +140,7 @@ class AdminController extends Controller {
         $hashed = md5($Password);
 //        print_r($hashed);
         $User = DB::table('AdminLTE')->select('Password')->where('email', "=", $Email)->get();
-        $User = json_decode(json_encode($User), true);
+//        $User = json_decode(json_encode($User), true);
         foreach ($User as $users) {
             foreach ($users as $value) {
 
@@ -141,16 +149,13 @@ class AdminController extends Controller {
 
 
 
-                    $ipAddress = $_SERVER['REMOTE_ADDR'];
-                    if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
-                        $ipAddress = array_pop(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
-                    }
+                 
 
                     $user['useragent'] = $request->server('HTTP_USER_AGENT');
                     $input['ip'] = $request->ip();
 
-                    print_r($user);
-                    print_r($input);
+//                    print_r($user);
+//          print_r($input);
 
 
 
@@ -165,14 +170,7 @@ class AdminController extends Controller {
                         $ipAddress = array_pop(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
                     }
 
-                    $user['useragent'] = $request->server('HTTP_USER_AGENT');
-                    $input['ip'] = $request->ip();
-
-                    print_r($user);
-                    print_r($input);
-
-
-
+                   
 
                     //First get the platform?
                     if (preg_match('/linux/i', $u_agent)) {
@@ -230,26 +228,17 @@ class AdminController extends Controller {
                     if ($version == null || $version == "") {
                         $version = "?";
                     }
-
-                    return array(
-                        'userAgent' => $u_agent,
-                        'name' => $bname,
-                        'version' => $version,
-                        'platform' => $platform,
-                        'pattern' => $pattern
-                    );
-
-
-// now try it
-                    $ua = getBrowser();
-                    $yourbrowser = "Your browser:<br> " . $ua['name'] . " <br>" . $ua['version'] . " on " . $ua['platform'] . " reports: <br >" . $ua['userAgent'];
-                    print_r($yourbrowser);
+                  $yourbrowser = ['userAgent' => $u_agent, 'name' => $bname, 'version' => $version, 'platform' => $platform, 'pattern' => $pattern];
+                  $jsonDetails =  json_encode($yourbrowser);
+                    
+ DB::table('Logs')->insert(['BrowserDetails' => $jsonDetails,'BrowserName'=>$yourbrowser['name'],'BrowserVersion'=>$yourbrowser['version'],'BrowserPlateform'=>$yourbrowser['platform'],'BrowserPattern'=>$yourbrowser['pattern'], 'IPAddress' => $input['ip'], 'UserName' => $Email]);
 
 
 
-//        return view('AdminLTE/index');
+//print_r($Userss);
+        return view('welcome');
                 } else {
-                    echo "errorjhgkh g jhg jhg hjg k gkj g";
+                    echo "error login details";
                 }
             }
         }
