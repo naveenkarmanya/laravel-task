@@ -1,31 +1,7 @@
 
-                 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Registration Page</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="{{ asset('/bootstrap/css/bootstrap.min.css') }}">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{asset('/dist/css/AdminLTE.min.css')}}">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="{{asset('/plugins/iCheck/square/blue.css')}}">
+            @extends('app')
+@section('content')     
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
--->  <!--
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-</head>
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
@@ -46,29 +22,29 @@
           
       <div class="form-group has-feedback">
           <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-          <b class="bold"> FullName</b>: <input type="text" class="form-control name disabled" name="fullname" id="fullname" placeholder="Full name" value="{{$Changedata[0]['FullName']}}">
+          <b class="bold"> FullName</b>: <input type="text" class="form-control name disabled" name="fullname" id="fullname" placeholder="Full name" value="{{$Update[0]['FullName']}}">
         </div>
       <div class="form-group has-feedback">
         
-          <b class="bold"> Address</b>:<input type='text' class="form-control name" name="textarea" id="textarea" placeholder="Address" value='{{$Changedata[0]['Address']}}'>
+          <b class="bold"> Address</b>:<input type='text' class="form-control name" name="textarea" id="textarea" placeholder="Address" value='{{$Update[0]['Address']}}'>
         </div>
       <div class="form-group has-feedback">
-          <b class="bold"> City</b>: <input type="text" class="form-control password" name="city" id="city" placeholder="City" value="{{$Changedata[0]['City']}}">
+          <b class="bold"> City</b>: <input type="text" class="form-control password" name="city" id="city" placeholder="City" value="{{$Update[0]['City']}}">
         
       </div>
       <div class="form-group has-feedback">
-          <b class="bold"> State</b>: <input type="text" class="form-control retypepassword" name="state" id="state" placeholder="State" value="{{$Changedata[0]['State']}}">
+          <b class="bold"> State</b>: <input type="text" class="form-control retypepassword" name="state" id="state" placeholder="State" value="{{$Update[0]['State']}}">
         
       </div>
          <div class="form-group has-feedback">
         
-             <b class="bold"> Phone</b>: <input type="text" class="form-control" placeholder="Phone" id="phone" name="phone" value="{{$Changedata[0]['Phone']}}">
+             <b class="bold"> Phone</b>: <input type="text" class="form-control" placeholder="Phone" id="phone" name="phone" value="{{$Update[0]['Phone']}}">
         
       </div>
     
       <div class="form-group has-feedback">
           
-          <b class="bold"> Email Address</b>:<input type="email" class="form-control" placeholder="User Name" id="email" name="email" value="{{$Changedata[0]['email']}}">
+          <b class="bold"> Email Address</b>:<input type="email" class="form-control" placeholder="User Name" id="email" name="email" value="{{$Update[0]['email']}}">
         </div>
       
         
@@ -123,9 +99,7 @@
     });
   });
 </script>
-</body>
-</html>
-
+@stop
          
          
         

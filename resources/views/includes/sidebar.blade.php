@@ -21,7 +21,7 @@
             <div class="input-group">
                 <input type="text" name="q" class="form-control" placeholder="Search..."/>
                 <span class="input-group-btn">
-                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                    <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
                 </span>
             </div>
         </form>
@@ -31,46 +31,69 @@
             <li class="header">MAIN NAVIGATION</li>
             <li class="active treeview">
                 <a href="#">
-                <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li class="active"><a href='{{'test'}}'><i class="fa fa-circle-o"></i> Dashboard v1</a>
-                    
+
                     </li>
-                    
-                   
-                    
+
+
+
                 </ul>
             </li>
         </ul>
-            <ul class="sidebar-menu">
+        <ul class="sidebar-menu">
+
             <li class="active treeview">
                 <a href="#">
-                <i class="fa fa-dashboard"></i> <span>User Profile</span> <i class="fa fa-angle-left pull-right"></i>
+                    <i class="fa fa-dashboard"></i> <span>File Uploads</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="active"><a href='{{URL::Route('uploadfile')}}'><i class="fa fa-circle-o"></i>File Upload</a>
+
+                    </li>
+                    <li class="active"><a href='{{URL::Route('datatable')}}'><i class="fa fa-circle-o"></i>Data Tables</a>
+
+                    </li>
+
+
+
+                </ul>
+            </li>
+        </ul>
+
+
+
+
+
+        <ul class="sidebar-menu">
+            <li class="active treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>User Profile</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li class="active"><a href='{{'Profile'}}'><i class="fa fa-circle-o"></i> Update Profile</a>
-                    
+
                     </li>
-                     <li class="active"><a href='{{'ChangePassword'}}'><i class="fa fa-circle-o"></i> Update Password</a>
-                    
+                    <li class="active"><a href='{{'ChangePassword'}}'><i class="fa fa-circle-o"></i> Update Password</a>
+
                     </li>
-                     <li class="active"><a href='{{'Logout'}}'><i class="fa fa-circle-o"></i> LOGOUT</a>
-                    
+                    <li class="active"><a href='{{'Logout'}}'><i class="fa fa-circle-o"></i> LOGOUT</a>
+
                     </li>
-                    
-                   
-                    
+
+
+
                 </ul>
             </li>
-        
-                 </ul>
-          
-               
-               
-                
-           
+
+        </ul>
+
+
+
+
+
     </section>
     <!-- /.sidebar -->
 </aside>
- 

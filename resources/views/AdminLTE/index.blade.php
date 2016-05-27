@@ -33,11 +33,11 @@
             <!-- /.login-logo -->
             <div class="login-box-body">
                 <?php
-                    if (isset($Result)) {
-                        echo "<b style='color:blue'>".$Result."</b>";
-                    }
-                    ?>
-                
+                if (isset($Result)) {
+                    echo "<b style='color:blue'>" . $Result . "</b>";
+                }
+                ?>
+
                 @if(session()->has('logout'))
                 <div class='alert-success'>{{Session::get('logout')}}</div>
                 @endif
@@ -90,12 +90,12 @@
                         <!-- /.col -->
                         <div class="col-xs-4">
                             <input type="submit" class="btn btn-primary btn-block btn-flat" value="Log In">
-                           
+
                         </div>
                         <!-- /.col -->
                     </div>
-                    
-                    
+
+
                 </form>
 
                 <!--    <div class="social-auth-links text-center">

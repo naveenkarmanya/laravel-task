@@ -1,49 +1,59 @@
-$(document).ready(function(){
 
- var geocoder = new google.maps.Geocoder();
-            var address = $("#addressmap").val();
-            
-          
-           geocoder.geocode( { 'address': address}, function(results, status) {
-
-
-  if (status == google.maps.GeocoderStatus.OK) {
-    var latitude = results[0].geometry.location.lat();
-    var longitude = results[0].geometry.location.lng();
-    
-  }
-  
-  
- 
-var myCenter=new google.maps.LatLng(latitude,longitude);
-
-function initialize()
+var x = document.getElementById("demo");
+function getLocation()
 {
- var mapProp = {
-                        center: myCenter,
-                        zoom: 5,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    };
-
-                    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-
-                    var marker = new google.maps.Marker({
-                        position: myCenter,
-                        title: 'Click to zoom'
-                    });
-
-                    marker.setMap(map);
-
-// Zoom to 9 when clicking on marker
-                    google.maps.event.addListener(marker, 'click', function () {
-                        map.setZoom(9);
-                        map.setCenter(marker.getPosition());
-                    });
-                    $("#MapModal").on("shown.bs.modal", function () {
-                        google.maps.event.trigger(googleMap, "resize");
-                        return map.setCenter(myCenter);
-                    });
+    if (navigator.geolocation)
+    {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
 }
-google.maps.event.addDomListener(window, 'load', initialize);
-});
-});
+
+function showPosition(position)
+{
+    lat = position.coords.latitude;
+    lon = position.coords.longitude;
+    latlon = new google.maps.LatLng(lat, lon)
+    mapholder = document.getElementById('googleMap')
+    mapholder.style.height = '250px';
+    mapholder.style.width = '100%';
+
+    var myOptions = {
+        center: latlon, zoom: 14,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: false,
+        navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL}
+    };
+    var map = new google.maps.Map(document.getElementById("googleMap"), myOptions);
+    var marker = new google.maps.Marker({position: latlon, map: map, title: "You are here!"});
+}
+
+function showError(error)
+{
+    switch (error.code)
+    {
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+    }
+}
+
+
+
+
+
+
+
+
+
+     

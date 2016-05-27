@@ -15,20 +15,22 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use App\Usedata;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\File;
+use Illuminate\Pagination\Paginator;
 
 class AdminController extends Controller {
 
     public function admin() {
         return view('welcome');
     }
-    
+
     public function test() {
-        
+
         $JsonSelect = DB::table('Logs')->select("*")->get();
-$Userss = json_decode(json_encode($JsonSelect), true);
-        return view('AdminLTE/getpassword',compact('Userss'));
+        $Userss = json_decode(json_encode($JsonSelect), true);
+        return view('AdminLTE/getpassword', compact('Userss'));
     }
-    
 
     public function register() {
         return view('AdminPage/register');
@@ -135,13 +137,13 @@ $Userss = json_decode(json_encode($JsonSelect), true);
     }
 
     public function AdminData(Request $request) {
-         session()->regenerate();
+        session()->regenerate();
         $Email = Input::get('email');
         $Password = Input::get('password');
         $hashed = md5($Password);
-        
+
         session([ 'email' => $Email]);
-         $sessionemail['email'] = session::get('email'); 
+        $sessionemail['email'] = session::get('email');
 //        print_r($hashed);
         $User = DB::table('AdminLTE')->select('Password')->where('email', "=", $Email)->get();
 //        $User = json_decode(json_encode($User), true);
@@ -153,7 +155,7 @@ $Userss = json_decode(json_encode($JsonSelect), true);
 
 
 
-                 
+
 
                     $user['useragent'] = $request->server('HTTP_USER_AGENT');
                     $input['ip'] = $request->ip();
@@ -174,7 +176,7 @@ $Userss = json_decode(json_encode($JsonSelect), true);
                         $ipAddress = array_pop(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
                     }
 
-                   
+
 
                     //First get the platform?
                     if (preg_match('/linux/i', $u_agent)) {
@@ -232,28 +234,27 @@ $Userss = json_decode(json_encode($JsonSelect), true);
                     if ($version == null || $version == "") {
                         $version = "?";
                     }
-                  $yourbrowser = ['userAgent' => $u_agent, 'name' => $bname, 'version' => $version, 'platform' => $platform, 'pattern' => $pattern];
-                  $jsonDetails =  json_encode($yourbrowser);
-                    
- DB::table('Logs')->insert(['BrowserDetails' => $jsonDetails,'BrowserName'=>$yourbrowser['name'],'BrowserVersion'=>$yourbrowser['version'],'BrowserPlateform'=>$yourbrowser['platform'],'BrowserPattern'=>$yourbrowser['pattern'], 'IPAddress' => $input['ip'], 'UserName' => $Email]);
+                    $yourbrowser = ['userAgent' => $u_agent, 'name' => $bname, 'version' => $version, 'platform' => $platform, 'pattern' => $pattern];
+                    $jsonDetails = json_encode($yourbrowser);
+
+                    DB::table('Logs')->insert(['BrowserDetails' => $jsonDetails, 'BrowserName' => $yourbrowser['name'], 'BrowserVersion' => $yourbrowser['version'], 'BrowserPlateform' => $yourbrowser['platform'], 'BrowserPattern' => $yourbrowser['pattern'], 'IPAddress' => $input['ip'], 'UserName' => $Email]);
 
 
-$info=Session::get('Address');
+                    $info = Session::get('Address');
 //print_r($Userss);
-        return view('welcome',  compact('info'));
+                    return view('welcome', compact('info'));
                 } else {
                     echo "error login details";
                 }
             }
         }
     }
-    
-     public function ChangePassword() {
+
+    public function ChangePassword() {
 
         return view('AdminLTE/ChangePassword');
     }
-    
-    
+
     public function UpdatePassword() {
         session()->regenerate();
 
@@ -262,100 +263,141 @@ $info=Session::get('Address');
         $ConformPassword = Input::get('conformpassword');
         $data['email'] = session::get('email');
         $hashed = md5($OldPassword);
-        
+
 
         $User = DB::table('AdminLTE')->select('Password')->where('email', "=", $data)->get();
 //        $User = json_decode(json_encode($User), true);
         foreach ($User as $users) {
             foreach ($users as $value) {
-                 
+
 //print_r($UpdatePass);
 //print_r($value);
 //print_r($hashed);
-    
-       
-                if ($value == $hashed) {
-                    
-    $Update = DB::table('AdminLTE')->where('email', "=", $data)->update(['Password'=>md5($NewPassword)]);
-    $UpdatePass=DB::table('AdminLTE')->select('Password')->get();
-   
-            $Result = "Succesfully inserted";
-        } else {
 
-            $Result = "<b style='color:red'>Somthing went Wrong</b>";
-        }
+
+                if ($value == $hashed) {
+
+                    $Update = DB::table('AdminLTE')->where('email', "=", $data)->update(['Password' => md5($NewPassword)]);
+                    $UpdatePass = DB::table('AdminLTE')->select('Password')->get();
+
+                    $Result = "Succesfully inserted";
+                } else {
+
+                    $Result = "<b style='color:red'>Somthing went Wrong</b>";
+                }
             }
         }
 
 //        Mail::send('email/PasswordNew', array('password' => $NewPassword), function($message)use($data) {
 //            $message->to($data, 'naveen')->subject('test mail');
 //        });
-    
-               
-  return view('AdminLTE/ChangePassword', compact('Result'));       
-        }
-        
-         public function Profile() {
-             session()->regenerate();
+
+
+        return view('AdminLTE/ChangePassword', compact('Result'));
+    }
+
+    public function Profile() {
+        session()->regenerate();
+
+        $Email = Input::get('email');
+
+
+        $data['email'] = session::get('email');
+
+//        print_r ($data);
+
+        $Update = DB::table('AdminLTE')->select('*')->where('email', '=', $data['email'])->get();
+
+        $Update = json_decode(json_encode($Update), true);
+//        print_r($Update);
+
+
+        return view('AdminLTE/Profile', compact('Update'));
+    }
+
+    public function UpdateProfile() {
         $FullName = Input::get('fullname');
         $Address = Input::get('textarea');
         $City = Input::get('city');
         $State = Input::get('state');
-             $Phone = Input::get('phone');
+        $Phone = Input::get('phone');
         $Email = Input::get('email');
-        
-        $data['FullName'] = session::get('FullName');
-        $data['Address'] = session::get('Address');
-        $data['City'] = session::get('City');
-        $data['State'] = session::get('State');
-        $data['Phone'] = session::get('Phone');
-        $data['email'] = session::get('email');
-        
+
 //        print_r ($data);
 
-        return view('AdminLTE/Profile');
-    }
-    
-        
-        
-        public function UpdateProfile() {
-            $Profiledata=DB::table('AdminLTE')->where('email','=',$Email)->get();
-        
-//        print_r ($data);
-       
-        $insert = DB::table('AdminLTE')->where('email','=',$Email)->update(['FullName' => $FullName, 'Address' => $Address, 'City' => $City, 'State' => $State, 'Phone' => $Phone, 'email' => $Email] );
-        
-        $Changedata=DB::table('AdminLTE')->where('email','=',$Email)->get();
-        
-        $Changedata= json_decode(json_encode($Changedata),true);
-        print_r($Changedata);
-        echo $Email;
-         
-        
-        if($Changedata){
-         $Result = "Succesfully inserted";
+        $Updatet = DB::table('AdminLTE')->where('email', '=', $Email)->update(['FullName' => $FullName, 'Address' => $Address, 'City' => $City, 'State' => $State, 'Phone' => $Phone, 'email' => $Email]);
+
+        $Changedata = DB::table('AdminLTE')->where('email', '=', $Email)->get();
+
+        $Changedata = json_decode(json_encode($Changedata), true);
+//        print_r($Changedata);
+//        echo $Email;
+
+
+        if ($Changedata) {
+            $Result = "Succesfully inserted";
         } else {
 
             $Result = "<b style='color:red'>Somthing went Wrong</b>";
         }
 
-        return view('AdminLTE/UpdateProfile',compact('Changedata','Result'));
+        return view('AdminLTE/UpdateProfile', compact('Changedata', 'Result'));
     }
-        
-        
-        public function Logout() {
- session()->regenerate(); 
-        session(['Email'=>null]);
-        return Redirect::route('AdminLTE/index')
-                        ->with('logout','sucessfully logged out');
-       
- 
-        
-    }
-    
-    
 
+    public function Logout() {
+        session()->regenerate();
+        session(['Email' => null]);
+        return Redirect::route('AdminLogin')
+                        ->with('logout', 'sucessfully logged out');
     }
-    
+
+    public function FileUpload() {
 
 
+        return view('AdminLTE/FileUpload');
+    }
+
+    public function ProgressBar() {
+
+        $input = Input::file('myfile');
+
+        $file_size = $input->getClientSize();
+        $file_type = $input->getClientMimeType();
+        $file_name = $input->getClientOriginalName();
+        $input->move("Upload", $file_name);
+        $uploads = DB::table('FileUpload')->insert(['FileName' => $file_name, 'FileType' => $file_type, 'FileSize' => $file_size]);
+        $upload = DB::table('FileUpload')->where('FileName', '=', $file_name)->get();
+        $upload = json_decode(json_encode($upload), true);
+        if ($upload) {
+            $Result = "Succesfully updated";
+        } else {
+
+            $Result = "<b style='color:red'>Somthing went Wrong</b>";
+        }
+
+        echo $file_size;
+
+
+
+        return view('AdminLTE/FileUpload', compact('Result'));
+    }
+
+    public function DataTablePage() {
+
+
+
+
+
+
+        $upload = DB::table('FileUpload')->select("*")->get();
+        $upload = json_decode(json_encode($upload), true);
+
+
+        // print_r($upload);    
+
+
+
+        return view('AdminLTE/DataTable', compact('upload'));
+    }
+
+}

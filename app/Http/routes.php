@@ -48,7 +48,6 @@ Route::post('welcome', array(
 Route::get('AdminLogin', array(
     'as' => 'AdminLogin',
     'uses' => 'AdminController@AdminLogin'
-    
 ));
 Route::post('AdminData', array(
     'as' => 'AdminData',
@@ -59,34 +58,46 @@ Route::get('test', array(
     'as' => 'test',
     'uses' => 'AdminController@test'
 ));
+
+Route::any('FIleUpload', array(
+    'as' => 'uploadfile',
+    'uses' => 'AdminController@FileUpload'
+));
+Route::post('progress', array(
+    'as' => 'progress',
+    'uses' => 'AdminController@ProgressBar'
+));
+
+Route::any('DataTable', array(
+    'as' => 'datatable',
+    'uses' => 'AdminController@DataTablepage'
+));
+
+
+
 Route::get('ChangePassword', array(
     'as' => 'ChangePassword',
     'uses' => 'AdminController@ChangePassword'
-    
 ));
 
 Route::post('UpdatePassword', array(
     'as' => 'UpdatePassword',
     'uses' => 'AdminController@UpdatePassword'
-    
 ));
 Route::any('Profile', array(
     'as' => 'Profile',
     'uses' => 'AdminController@Profile'
-    
 ));
 
 
 Route::any('UpdateProfile', array(
     'as' => 'UpdateProfile',
     'uses' => 'AdminController@UpdateProfile'
-    
 ));
 
 Route::get('Logout', array(
     'as' => 'Logout',
     'uses' => 'AdminController@Logout'
-    
 ));
 
 

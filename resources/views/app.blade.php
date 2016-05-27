@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        
+
         <meta charset="UTF-8">
         <title>AdminLTE 2 | Dashboard</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
@@ -34,91 +34,142 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-        
-        
+
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" type="text/css"> 
+
+        <script src="https://code.jquery.com/jquery-1.12.3.min.js" type="text/javascript"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript" ></script>
+
+        <link href="/css/bootstrap.min.css" type="text/css">
+
+
+
+        <script>
+$(document).ready(function () {
+    $('#example').DataTable({
+        "pagingType": "full_numbers"
+    });
+});
+
+        </script>
+
+
         <style>
-        html, body {
-            min-height: 100%;
-            padding: 0;
-            margin: 0;
-            font-family: 'Source Sans Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
-        }
-        iframe {
-            display: block;
-            overflow: auto;
-            border: 0;
-            margin: 0;
-            padding: 0;
-            margin: 0 auto;
-        }
-        .frame {
-            height: 49px;
-            margin: 0;
-            padding: 0;
-            border-bottom: 1px solid #ddd;
-        }
-        .frame a {
-            color: #666;
-        }
-        .frame a:hover {
-            color: #222;
-        }
-        .frame .buttons a {
-            height: 49px;
-            line-height: 49px;
-            display: inline-block;
-            text-align: center;
-            width: 50px;
-            border-left: 1px solid #ddd;
-        }
-        .frame .brand {
-            color: #444;
-            font-size: 20px;
-            line-height: 49px;
-            display: inline-block;
-            padding-left: 10px;
-        }
-        .frame .brand small {
-            font-size: 14px;
-        }
-        a,a:hover {
-            text-decoration: none;
-        }
-        .container-fluid {
-            padding: 0;
-            margin: 0;
-        }
-        .text-muted {
-            color: #999;
-        }
-        .ad {
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            background: #222;
-            background: rgba(0,0,0,0.8);
-            width: 100%;
-            color: #fff;
-            display: none;
-        }
-        #close-ad {
-            float: left;
-            margin-left: 10px;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-    </style>
-    
-  
-        
-        
-        
+            html, body {
+                min-height: 100%;
+                padding: 0;
+                margin: 0;
+                font-family: 'Source Sans Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
+            }
+            iframe {
+                display: block;
+                overflow: auto;
+                border: 0;
+                margin: 0;
+                padding: 0;
+                margin: 0 auto;
+            }
+            .frame {
+                height: 49px;
+                margin: 0;
+                padding: 0;
+                border-bottom: 1px solid #ddd;
+            }
+            .frame a {
+                color: #666;
+            }
+            .frame a:hover {
+                color: #222;
+            }
+            .frame .buttons a {
+                height: 49px;
+                line-height: 49px;
+                display: inline-block;
+                text-align: center;
+                width: 50px;
+                border-left: 1px solid #ddd;
+            }
+            .frame .brand {
+                color: #444;
+                font-size: 20px;
+                line-height: 49px;
+                display: inline-block;
+                padding-left: 10px;
+            }
+            .frame .brand small {
+                font-size: 14px;
+            }
+            a,a:hover {
+                text-decoration: none;
+            }
+            .container-fluid {
+                padding: 0;
+                margin: 0;
+            }
+            .text-muted {
+                color: #999;
+            }
+            .ad {
+                text-align: center;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                background: #222;
+                background: rgba(0,0,0,0.8);
+                width: 100%;
+                color: #fff;
+                display: none;
+            }
+            #close-ad {
+                float: left;
+                margin-left: 10px;
+                margin-top: 10px;
+                cursor: pointer;
+            }
+
+
+            .form 
+            { 
+                display: block; 
+                margin: 20px auto;
+                background: #eee;
+                border-radius: 10px; 
+                padding: 15px ;
+            }
+
+            .progress
+            {
+                position:relative;
+                width:318px; 
+                border: 1px solid #ddd; 
+                padding: 1px; 
+                border-radius: 3px; 
+            }
+            .bar
+            { 
+                background-color: #B4F5B4;
+                width:0%; 
+                height:20px;
+                border-radius: 3px;
+            }
+            .percent {
+                position:absolute;
+                display:inline-block; 
+                top:0px; 
+                left:43%;
+            }
+        </style>
+
+
+
+
+
     </head>
     <body class="skin-blue sidebar-mini" data-spy="scroll" data-target=".navbar" data-offset="50">
-  <div class="wrapper">
-            
-          
+        <div class="wrapper">
+
+
             @include('includes.header')
             @include('includes.sidebar')
             <!-- Content Wrapper. Contains page content -->
@@ -126,8 +177,8 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                    Dashboard
-                    <small>Control panel</small>
+                        Dashboard
+                        <small>Control panel</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -139,28 +190,28 @@
                     @yield('content')
                 </section><!-- /.content -->
             </div><!-- /.content-wrapper -->
-            
-            
-            
-<!--            <div class="content-wrapper">
-                 Content Header (Page header) 
-                <section class="content-header">
-                    <h1>
-                    User Profile
-                    <small>Control panel</small>
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">User Profile</li>
-                    </ol>
-                </section>
-                 Main content 
-                <section class="content">
-                    @yield('contents')
-                </section> /.content 
-            </div>-->
-            
-            
+
+
+
+            <!--            <div class="content-wrapper">
+                             Content Header (Page header) 
+                            <section class="content-header">
+                                <h1>
+                                User Profile
+                                <small>Control panel</small>
+                                </h1>
+                                <ol class="breadcrumb">
+                                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                                    <li class="active">User Profile</li>
+                                </ol>
+                            </section>
+                             Main content 
+                            <section class="content">
+                                @yield('contents')
+                            </section> /.content 
+                        </div>-->
+
+
             <footer class="main-footer">
                 <div class="pull-right hidden-xs">
                     <b>Version</b> 2.0
@@ -168,16 +219,16 @@
                 <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
             </footer>
         </div><!-- ./wrapper -->
- 
+
         <!-- jQuery 2.1.3 -->
         <script src="{{ asset('/plugins/jQuery/jQuery-2.1.3.min.js') }}"></script>
         <!-- jQuery UI 1.11.2 -->
         <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
-            $.widget.bridge('uibutton', $.ui.button);
+$.widget.bridge('uibutton', $.ui.button);
         </script>
-        
+
         <!-- Bootstrap 3.3.2 JS -->
         <script src="{{ asset('/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
         <!-- Morris.js charts -->
@@ -207,11 +258,28 @@
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
         <script src="{{ asset('/dist/js/pages/dashboard.js') }}" type="text/javascript"></script>
         <!-- AdminLTE for demo purposes -->
+
+
         <script src="{{ asset('/dist/js/demo.js') }}" type="text/javascript"></script>
-        <script src='/js/jquery.min.js' type="text/javascript"></script>
+
+
         <script src="http://maps.googleapis.com/maps/api/js"></script>
+
         <script src='/js/googlemap.js' type="text/javascript"></script>
- 
-    
+
+
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
+        <script src="http://malsup.github.com/jquery.form.js"></script>
+
+
+
+        <script src='/js/progress.js' type="text/javascript"></script>
+
+
+
+
+
+
     </body>
 </html>
