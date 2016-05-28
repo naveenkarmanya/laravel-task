@@ -95,6 +95,18 @@ Route::any('UpdateProfile', array(
     'uses' => 'AdminController@UpdateProfile'
 ));
 
+Route::any('TimeZone', array(
+    'as' => 'TimeZone',
+    'uses' => 'AdminController@TimeZone'
+));
+
+
+
+
+
+
+
+
 Route::get('Logout', array(
     'as' => 'Logout',
     'uses' => 'AdminController@Logout'

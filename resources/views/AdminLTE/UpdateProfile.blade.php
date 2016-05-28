@@ -22,29 +22,33 @@
           
       <div class="form-group has-feedback">
           <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-          <b class="bold"> FullName</b>: <input type="text" class="form-control name disabled" name="fullname" id="fullname" placeholder="Full name" value="{{$Changedata[0]['FullName']}}">
+          <b class="bold"> FullName</b>: <input type="hidden" class="form-control name disabled" name="fullname" id="fullname" placeholder="Full name" value="">{{$Changedata[0]['FullName']}}
         </div>
       <div class="form-group has-feedback">
         
-          <b class="bold"> Address</b>:<input type='text' class="form-control name" name="textarea" id="textarea" placeholder="Address" value='{{$Changedata[0]['Address']}}'>
+          <b class="bold"> Address</b>:<input type='hidden' class="form-control name" name="textarea" id="textarea" placeholder="Address" value=''>{{$Changedata[0]['Address']}}
         </div>
       <div class="form-group has-feedback">
-          <b class="bold"> City</b>: <input type="text" class="form-control password" name="city" id="city" placeholder="City" value="{{$Changedata[0]['City']}}">
+          <b class="bold"> City</b>: <input type="hidden" class="form-control password" name="city" id="city" placeholder="City" value="">{{$Changedata[0]['City']}}
         
       </div>
       <div class="form-group has-feedback">
-          <b class="bold"> State</b>: <input type="text" class="form-control retypepassword" name="state" id="state" placeholder="State" value="{{$Changedata[0]['State']}}">
+          <b class="bold"> State</b>: <input type="hidden" class="form-control retypepassword" name="state" id="state" placeholder="State" value="">{{$Changedata[0]['State']}}
         
       </div>
          <div class="form-group has-feedback">
         
-             <b class="bold"> Phone</b>: <input type="text" class="form-control" placeholder="Phone" id="phone" name="phone" value="{{$Changedata[0]['Phone']}}">
+             <b class="bold"> Phone</b>: <input type="hidden" class="form-control" placeholder="Phone" id="phone" name="phone" value="">{{$Changedata[0]['Phone']}}
         
       </div>
     
       <div class="form-group has-feedback">
           
-          <b class="bold"> Email Address</b>:<input type="email" class="form-control" placeholder="User Name" id="email" name="email" value="{{$Changedata[0]['email']}}">
+          <b class="bold"> Email Address</b>:<input type="hidden" class="form-control" placeholder="User Name" id="email" name="email" value="">{{$Changedata[0]['email']}}
+        </div>
+         <div class="form-group has-feedback">
+          
+             <b class="bold"> Account Number</b>:<input type="hidden" class="form-control" placeholder="Account Number" id="AccountNumber" name="AccountNumber" value="">{{$Changedata[0]['AccountNumber']}}
         </div>
       
         

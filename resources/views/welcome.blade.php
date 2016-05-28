@@ -3,14 +3,7 @@
 <!-- Small boxes (Stat box) -->
 
 
-@if(isset($info))
-<input type="hidden" name="addressmap" id="addressmap" value="{{$info}}">
 
-
-@endif
-<?php
-print_r($info);
-?>
 
 <div class="row">
     <div class="col-lg-3 col-xs-6">

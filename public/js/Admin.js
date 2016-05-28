@@ -13,7 +13,7 @@ $(document).ready(function () {
             $("#city").css({"color": "blue", "border": "blue solid 1px"}).html("");
 
         }
-        
+
     });
     $("#state").keyup(function () {
         var State = $("#state").val();
@@ -102,8 +102,43 @@ $(document).ready(function () {
         }
 
     });
-    
-     $("#password").keyup(function () {
+
+    $("#AccountNumber").keyup(function () {
+      
+        var AccountNumber = $("#AccountNumber");
+
+
+        if (AccountNumber == null || AccountNumber == "")
+        {
+            $("#AccountNumber").css({"color": "red", "border": "red solid 1px"});
+            $("#accountnumlocation").html("Please enter your phone number");
+
+
+        } else if (isNaN(AccountNumber.val()))
+        {
+            $("#AccountNumber").css({"color": "red", "border": "red solid 1px"});
+            $("#accountnumlocation").html("Not allowed characters in phone field");
+
+
+        } else if (!(AccountNumber.val().length == 12)) {
+
+
+            $("#AccountNumber").css({"color": "red", "border": "red solid 1px"});
+            $("#accountnumlocation").html("phone number in 10 digit");
+
+
+        } else
+        {
+
+            $("#AccountNumber").css({"color": "blue", "border": "blue solid 1px"}).html("");
+
+        }
+
+    });
+
+
+
+    $("#password").keyup(function () {
         var Password = $("#password").val();
 
         if (Password == null || Password == "")
@@ -116,7 +151,7 @@ $(document).ready(function () {
             $("#password").css({"color": "blue", "border": "blue solid 1px"}).html("");
 
         }
-        
+
     });
 
 
@@ -139,13 +174,17 @@ $(document).ready(function () {
 
         }
     });
-    
-        $(".login").submit(function (event)
+
+
+
+
+    $(".login").submit(function (event)
     {
         var Email = $("#email").val();
         var Phone = $("#phone").val();
-       
-        var len = $(this).val().length;
+        var AccountNumber = $("#AccountNumber").val();
+
+
         if (Phone == null || Phone == "")
         {
             $("#phone").css({"color": "red", "border": "red solid 1px"});
@@ -157,7 +196,21 @@ $(document).ready(function () {
             $("#phonelocation").html("");
 
         }
-          if (Email == null || Email == "")
+
+        if (AccountNumber == null || AccountNumber == "")
+        {
+            $("#AccountNumber").css({"color": "red", "border": "red solid 1px"});
+            $("#accountnumlocation").html("Please enter your AccountNumber number");
+            event.preventDefault();
+
+        } else
+        {
+            $("#accountnumlocation").html("");
+
+        }
+
+
+        if (Email == null || Email == "")
         {
             $("#email").css({"color": "red", "border": "red solid 1px"});
             $("#emaillocation").html("Please enter your email address");
@@ -167,11 +220,11 @@ $(document).ready(function () {
 
 
     });
-    
-    
-    
-    
-    
+
+
+
+
+
 
     $("#admin").submit(function (event)
     {
@@ -191,8 +244,8 @@ $(document).ready(function () {
             $("#passwordlocation").html("");
 
         }
-        
-        
+
+
         if (Email == null || Email == "")
         {
             $("#email").css({"color": "red", "border": "red solid 1px"});
@@ -273,7 +326,7 @@ $(document).ready(function () {
 
 
     });
-    
+
 
 
 

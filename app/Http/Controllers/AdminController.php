@@ -41,11 +41,12 @@ class AdminController extends Controller {
 
         $Phone = Input::get('phone');
         $Email = Input::get('email');
+        $AccountNumber = Input::get('AccountNumber');
 
 
 
 
-        session(['Phone' => $Phone, 'email' => $Email]);
+        session(['Phone' => $Phone, 'email' => $Email,'AccountNumber' => $AccountNumber]);
 
         $select = Session::all();
         $data['FullName'] = session::get('FullName');
@@ -54,8 +55,10 @@ class AdminController extends Controller {
         $data['State'] = session::get('State');
         $data['Phone'] = session::get('Phone');
         $data['email'] = session::get('email');
-//print_r ($data);
+         $data['AccountNumber'] = session::get('AccountNumber');
+print_r ($data);
 //$data=  json_encode($data);
+print_r($data);
 
         return view('AdminLTE/registersubmit', compact('data'));
     }
@@ -80,6 +83,7 @@ class AdminController extends Controller {
         $State = Input::get('state');
         $Phone = Input::get('phone');
         $Email = Input::get('email');
+         $AccountNumber = Input::get('AccountNumber');
         $_len = 20;
         $type = 'alpha_numeric';
 
@@ -104,7 +108,7 @@ class AdminController extends Controller {
 
 
 
-        $insert = DB::table('AdminLTE')->insert(['FullName' => $FullName, 'Address' => $Address, 'City' => $City, 'State' => $State, 'Phone' => $Phone, 'email' => $Email, 'Password' => $hashed_random_password]);
+        $insert = DB::table('AdminLTE')->insert(['FullName' => $FullName, 'Address' => $Address, 'City' => $City, 'State' => $State, 'Phone' => $Phone, 'email' => $Email,'AccountNumber'=>md5($AccountNumber), 'Password' => $hashed_random_password]);
 
         $User = DB::table('AdminLTE')->select("*")->get();
 //        $User = Usedata::create(['FullName' => $FullName, 'Address' => $Address, 'City' => $City, 'State' => $State, 'Phone' => $Phone, 'email' => $Email,'Password'=>$Password]);
@@ -117,7 +121,7 @@ class AdminController extends Controller {
         }
 
 // $hashed_random_password = (str_random(20));
-//      print_r($password);
+      print_r($password);
 //        print_r($password);
 
 
@@ -322,10 +326,11 @@ class AdminController extends Controller {
         $State = Input::get('state');
         $Phone = Input::get('phone');
         $Email = Input::get('email');
+        $AccountNumber = Input::get('AccountNumber');
 
 //        print_r ($data);
 
-        $Updatet = DB::table('AdminLTE')->where('email', '=', $Email)->update(['FullName' => $FullName, 'Address' => $Address, 'City' => $City, 'State' => $State, 'Phone' => $Phone, 'email' => $Email]);
+        $Updatet = DB::table('AdminLTE')->where('email', '=', $Email)->update(['FullName' => $FullName, 'Address' => $Address, 'City' => $City, 'State' => $State, 'Phone' => $Phone, 'email' => $Email,'AccountNumber'=>$AccountNumber]);
 
         $Changedata = DB::table('AdminLTE')->where('email', '=', $Email)->get();
 
@@ -398,6 +403,61 @@ class AdminController extends Controller {
 
 
         return view('AdminLTE/DataTable', compact('upload'));
+    }
+    
+    
+    public function getpassword()
+    {
+        
+       
+        session()->regenerate();
+
+        $Phone = Input::get('phone');
+        $Email = Input::get('email');
+
+
+
+
+        session(['Phone' => $Phone, 'email' => $Email]);
+
+        $select = Session::all();
+        $data['FullName'] = session::get('FullName');
+        $data['Address'] = session::get('Address');
+        $data['City'] = session::get('City');
+        $data['State'] = session::get('State');
+        $data['Phone'] = session::get('Phone');
+        $data['email'] = session::get('email');
+      
+     
+
+//        print_r($hashed);
+       $Update = DB::table('AdminLTE')->select('Password','email')->where('email','=',$data['email'])->get();
+        $User = json_decode(json_encode($Update), true);
+        
+        print_r($User);
+    }
+    
+    public function TimeZone()
+    {
+       
+$tzlist=timezone_abbreviations_list();
+$tzlist=  json_encode($tzlist);
+   print_r($tzlist);
+        
+        //
+//
+//print_r(timezone_abbreviations_list());
+// $insert = DB::table('TimeZone')->insert(['Name' => $tzlist['timezone_id'], 'Offset' => $tzlist['offset']]);
+//
+//        $User = DB::table('TimeZone')->select("*")->get();
+//        print_r($User);
+       
+//return view('AdminLTE/TimeZone',compact('User'));
+
+   
+  
+ 
+    
     }
 
 }

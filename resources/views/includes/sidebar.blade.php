@@ -37,6 +37,10 @@
                     <li class="active"><a href='{{'test'}}'><i class="fa fa-circle-o"></i> Dashboard v1</a>
 
                     </li>
+                    
+                     <li class="active"><a href='{{'TimeZone'}}'><i class="fa fa-circle-o"></i> Time Zone</a>
+
+                    </li>
 
 
 

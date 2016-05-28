@@ -63,6 +63,11 @@
           
           <b class="bold"> Email Address</b>:<input type="hidden" class="form-control" placeholder="User Name" id="email" name="email" value="{{$data['email']}}">{{$data['email']}}
         </div>
+        
+        <div class="form-group has-feedback">
+          
+          <b class="bold">Account Number</b>:<input type="hidden" class="form-control" placeholder="Account Number" id="AccountNumber" name="AccountNumber" value="{{$data['AccountNumber']}}">{{$data['AccountNumber']}}
+        </div>
       
         
         

@@ -1,5 +1,4 @@
-
-            @extends('app')
+@extends('app')
 @section('content')     
 
 <body class="hold-transition register-page">
@@ -45,6 +44,10 @@
       <div class="form-group has-feedback">
           
           <b class="bold"> Email Address</b>:<input type="email" class="form-control" placeholder="User Name" id="email" name="email" value="{{$Update[0]['email']}}">
+        </div>
+        <div class="form-group has-feedback">
+          
+          <b class="bold"> Account Number</b>:<input type="text" class="form-control" placeholder="Account Number" id="AccountNumber" name="AccountNumber" value="{{$Update[0]['AccountNumber']}}">
         </div>
       
         
