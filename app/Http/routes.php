@@ -35,10 +35,19 @@ Route::post('loginsubmit', array(
     'uses' => 'AdminController@loginsubmit'
 ));
 
-Route::get('getpassword', array(
+Route::get('forgotpassword', array(
     'as' => 'forgotpassword',
-    'uses' => 'AdminController@getpassword'
+    'uses' => 'AdminController@forgotpassword'
 ));
+Route::post('sendpassword', array(
+    'as' => 'sentpassword',
+    'uses' => 'AdminController@sentpassword'
+));
+
+
+
+
+
 
 Route::post('welcome', array(
     'as' => 'welcome',
@@ -97,7 +106,7 @@ Route::any('UpdateProfile', array(
 
 Route::any('TimeZone', array(
     'as' => 'TimeZone',
-    'uses' => 'AdminController@TimeZone'
+    'uses' => 'AdminController@get_timezone_offset'
 ));
 
 

@@ -46,7 +46,7 @@ class AdminController extends Controller {
 
 
 
-        session(['Phone' => $Phone, 'email' => $Email,'AccountNumber' => $AccountNumber]);
+        session(['Phone' => $Phone, 'email' => $Email, 'AccountNumber' => $AccountNumber]);
 
         $select = Session::all();
         $data['FullName'] = session::get('FullName');
@@ -55,10 +55,10 @@ class AdminController extends Controller {
         $data['State'] = session::get('State');
         $data['Phone'] = session::get('Phone');
         $data['email'] = session::get('email');
-         $data['AccountNumber'] = session::get('AccountNumber');
-print_r ($data);
+        $data['AccountNumber'] = session::get('AccountNumber');
+        print_r($data);
 //$data=  json_encode($data);
-print_r($data);
+        print_r($data);
 
         return view('AdminLTE/registersubmit', compact('data'));
     }
@@ -83,7 +83,7 @@ print_r($data);
         $State = Input::get('state');
         $Phone = Input::get('phone');
         $Email = Input::get('email');
-         $AccountNumber = Input::get('AccountNumber');
+        $AccountNumber = Input::get('AccountNumber');
         $_len = 20;
         $type = 'alpha_numeric';
 
@@ -108,7 +108,7 @@ print_r($data);
 
 
 
-        $insert = DB::table('AdminLTE')->insert(['FullName' => $FullName, 'Address' => $Address, 'City' => $City, 'State' => $State, 'Phone' => $Phone, 'email' => $Email,'AccountNumber'=>md5($AccountNumber), 'Password' => $hashed_random_password]);
+        $insert = DB::table('AdminLTE')->insert(['FullName' => $FullName, 'Address' => $Address, 'City' => $City, 'State' => $State, 'Phone' => $Phone, 'email' => $Email, 'AccountNumber' => md5($AccountNumber), 'Password' => $hashed_random_password]);
 
         $User = DB::table('AdminLTE')->select("*")->get();
 //        $User = Usedata::create(['FullName' => $FullName, 'Address' => $Address, 'City' => $City, 'State' => $State, 'Phone' => $Phone, 'email' => $Email,'Password'=>$Password]);
@@ -121,7 +121,7 @@ print_r($data);
         }
 
 // $hashed_random_password = (str_random(20));
-      print_r($password);
+        print_r($password);
 //        print_r($password);
 
 
@@ -330,7 +330,7 @@ print_r($data);
 
 //        print_r ($data);
 
-        $Updatet = DB::table('AdminLTE')->where('email', '=', $Email)->update(['FullName' => $FullName, 'Address' => $Address, 'City' => $City, 'State' => $State, 'Phone' => $Phone, 'email' => $Email,'AccountNumber'=>$AccountNumber]);
+        $Updatet = DB::table('AdminLTE')->where('email', '=', $Email)->update(['FullName' => $FullName, 'Address' => $Address, 'City' => $City, 'State' => $State, 'Phone' => $Phone, 'email' => $Email, 'AccountNumber' => $AccountNumber]);
 
         $Changedata = DB::table('AdminLTE')->where('email', '=', $Email)->get();
 
@@ -405,45 +405,43 @@ print_r($data);
         return view('AdminLTE/DataTable', compact('upload'));
     }
     
+     public function forgotpassword() {
+         
+         return view('AdminLTE/forgotpassword');
+         
+     }
     
-    public function getpassword()
-    {
-        
-       
-        session()->regenerate();
+    public function sentpassword() {
 
-        $Phone = Input::get('phone');
+       
         $Email = Input::get('email');
 
-
-
-
-        session(['Phone' => $Phone, 'email' => $Email]);
-
-        $select = Session::all();
-        $data['FullName'] = session::get('FullName');
-        $data['Address'] = session::get('Address');
-        $data['City'] = session::get('City');
-        $data['State'] = session::get('State');
-        $data['Phone'] = session::get('Phone');
-        $data['email'] = session::get('email');
-      
-     
+ 
 
 //        print_r($hashed);
-       $Update = DB::table('AdminLTE')->select('Password','email')->where('email','=',$data['email'])->get();
+        $Update = DB::table('AdminLTE')->select('Password')->where('email', '=', $Email)->get();
         $User = json_decode(json_encode($Update), true);
+         
+     foreach($User as $Users)
+          foreach($Users as $value)
+        print_r($value);
         
-        print_r($User);
+        Mail::send('email/PasswordNew', array('value' => $value), function($message)use($Email) {
+            $message->to($Email, 'naveen')->subject('test mail');
+     });
+     
+//     return view('AdminLTE/forgotpassword', compact('User'));
+        
+        
+        
     }
-    
-    public function TimeZone()
-    {
-       
-$tzlist=timezone_abbreviations_list();
-$tzlist=  json_encode($tzlist);
-   print_r($tzlist);
-        
+
+    public function get_timezone_offset($remote_tz, $origin_tz = null) {
+
+
+//$tzlist=timezone_abbreviations_list();
+//$tzlist=  json_encode($tzlist);
+//   print_r($tzlist);
         //
 //
 //print_r(timezone_abbreviations_list());
@@ -451,13 +449,21 @@ $tzlist=  json_encode($tzlist);
 //
 //        $User = DB::table('TimeZone')->select("*")->get();
 //        print_r($User);
-       
 //return view('AdminLTE/TimeZone',compact('User'));
 
-   
-  
- 
-    
+
+
+        if ($origin_tz === null) {
+            if (!is_string($origin_tz = date_default_timezone_get())) {
+                return false; // A UTC timestamp was returned -- bail out!
+            }
+        }
+        $origin_dtz = new DateTimeZone($origin_tz);
+        $remote_dtz = new DateTimeZone($remote_tz);
+        $origin_dt = new DateTime("now", $origin_dtz);
+        $remote_dt = new DateTime("now", $remote_dtz);
+        $offset = $origin_dtz->getOffset($origin_dt) - $remote_dtz->getOffset($remote_dt);
+        print_r($offset);
     }
 
 }
