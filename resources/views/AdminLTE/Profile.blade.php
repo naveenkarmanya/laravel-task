@@ -47,7 +47,7 @@
         </div>
         <div class="form-group has-feedback">
           
-          <b class="bold"> Account Number</b>:<input type="text" class="form-control" placeholder="Account Number" id="AccountNumber" name="AccountNumber" value="{{$Update[0]['AccountNumber']}}">
+          <b class="bold"> Account Number</b>:<input type="text" class="form-control" placeholder="Account Number" id="AccountNumber" name="AccountNumber" value="">
         </div>
       
         

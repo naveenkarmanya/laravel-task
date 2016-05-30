@@ -132,6 +132,27 @@ Route::get('excelFormatLogs',
   'as' => 'excelFormatLogs',
   'uses' => 'AdminController@excelFormatLogs'
 ]);
+Route::get('excelFormatFileUpload', 
+[
+  'as' => 'excelFormatFileUpload',
+  'uses' => 'AdminController@excelFormatFileUpload'
+]);
+
+Route::get('pdfFormatTimeZone', 
+[
+  'as' => 'pdfFormatTimeZone',
+  'uses' => 'AdminController@pdfFormatTimeZone'
+]);
+Route::get('pdfFormatAdminLTE', 
+[
+  'as' => 'pdfFormatAdminLTE',
+  'uses' => 'AdminController@pdfFormatAdminLTE'
+]);
+Route::get('pdfFormatLogs', 
+[
+  'as' => 'pdfFormatLogs',
+  'uses' => 'AdminController@pdfFormatLogs'
+]);
 Route::get('pdfFormatFileUpload', 
 [
   'as' => 'pdfFormatFileUpload',

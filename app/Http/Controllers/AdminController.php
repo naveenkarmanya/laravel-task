@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Pagination\Paginator;
 use App\TimeZone;
 use Maatwebsite\Excel\Facades\Excel;
-use Barryvdh\DomPDF\PDF;
+use PDF;
 
 
 
@@ -62,9 +62,9 @@ class AdminController extends Controller {
         $data['Phone'] = session::get('Phone');
         $data['email'] = session::get('email');
         $data['AccountNumber'] = session::get('AccountNumber');
-        print_r($data);
+//        print_r($data);
 //$data=  json_encode($data);
-        print_r($data);
+//        print_r($data);
 
         return view('AdminLTE/registersubmit', compact('data'));
     }
@@ -89,7 +89,7 @@ class AdminController extends Controller {
         $State = Input::get('state');
         $Phone = Input::get('phone');
         $Email = Input::get('email');
-        $AccountNumber = Input::get('AccountNumber');
+       // $AccountNumber = Input::get('AccountNumber');
         $_len = 20;
         $type = 'alpha_numeric';
 
@@ -110,7 +110,7 @@ class AdminController extends Controller {
 //    return $password;       // Returns the generated Pass
 //print_r($password);
         $hashed_random_password = md5($password);
-        print_r($hashed_random_password);
+       // print_r($hashed_random_password);
 
 
 
@@ -127,7 +127,7 @@ class AdminController extends Controller {
         }
 
 // $hashed_random_password = (str_random(20));
-        print_r($password);
+       // print_r($password);
 //        print_r($password);
 
 
@@ -548,11 +548,41 @@ public function excelFormatTimeZone() {
        })->export('xls');
 
    }
+   public function pdfFormatTimeZone() {
+       $user = DB::table('TimeZone')->select('*')->get();
+       $user=  json_decode(json_encode($user),true);
+       $pdf=PDF::loadView('pdf.TimeZone',  compact('user'));
+       return $pdf->stream('TimeZone.pdf');
+       
+
+   }
+
+   public function pdfFormatAdminLTE() {
+      
+         $user = DB::table('AdminLTE')->select('*')->get();
+       $user=  json_decode(json_encode($user),true);
+       $pdf=PDF::loadView('pdf.AdminLte',  compact('user'));
+       return $pdf->stream('AdminLte.pdf');
+
+   }
+    public function pdfFormatLogs() {
+      
+         $user = DB::table('Logs')->select('*')->get();
+       $user=  json_decode(json_encode($user),true);
+       $pdf=PDF::loadView('pdf.Logs',  compact('user'));
+       return $pdf->stream('Logs.pdf');
+
+   }
+   
+   
+   
+   
    public function pdfFormatFileUpload() {
       
-         $user =DB::table('FileUpload')->select('*')->get();
+         $user = DB::table('FileUpload')->select('*')->get();
        $user=  json_decode(json_encode($user),true);
-       $pdf=PDF::loadView('pdf.FileUpload');
+
+       $pdf=PDF::loadView('pdf.FileUpload',  compact('user'));
        return $pdf->stream('FileUpload.pdf');
        
        

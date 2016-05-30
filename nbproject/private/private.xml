@@ -9,14 +9,20 @@
             <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/resources/views/includes/header.blade.php</file>
             <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/resources/views/AdminLTE/TimeZone.blade.php</file>
             <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/resources/views/email/PasswordNew.blade.php</file>
+            <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/resources/views/pdf/Logs.blade.php</file>
             <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/app/Http/Controllers/AdminController.php</file>
             <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/resources/views/AdminLTE/UpdateProfile.blade.php</file>
             <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/resources/views/AdminLTE/forgotpassword.blade.php</file>
             <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/resources/views/includes/sidebar.blade.php</file>
             <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/resources/views/email/testpassword.blade.php</file>
+            <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/public/js/progress.js</file>
             <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/resources/views/AdminLTE/registersubmit.blade.php</file>
+            <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/resources/views/pdf/FileUpload.blade.php</file>
+            <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/resources/views/pdf/TimeZone.blade.php</file>
+            <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/resources/views/pdf/AdminLte.blade.php</file>
             <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/app/Http/routes.php</file>
             <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/resources/views/AdminLTE/DataTable.blade.php</file>
+            <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/config/app.php</file>
             <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/resources/views/AdminPage/login.blade.php</file>
             <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/resources/views/AdminLTE/Profile.blade.php</file>
             <file>file:/home/naveen/Karmanya/mydev/laravel-tasks/resources/views/app.blade.php</file>
