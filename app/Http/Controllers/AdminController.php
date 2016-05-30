@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -19,6 +20,10 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\File;
 use Illuminate\Pagination\Paginator;
 use App\TimeZone;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\PDF;
+
+
 
 class AdminController extends Controller {
 
@@ -442,20 +447,22 @@ class AdminController extends Controller {
 
 $tzlist = timezone_abbreviations_list();
         $tzlist = json_decode(json_encode($tzlist), true);
+        //print_r($tzlist);
         foreach ($tzlist as $value) {
             foreach ($value as $val) {
                
                 $offset = $val['offset'];
                 $name = $val['timezone_id'];
               
+              
                  $insert = DB::table('TimeZone')->insert(['Name' => $name, 'Offset' => $offset]);
                $User = DB::table('TimeZone')->select("*")->get();
                       
          
           $User = json_decode(json_encode($User), true);
-         // print_r($User);
+// print_r($User);
           
-                return view('AdminLTE/TimeZone', compact('User'));
+  return view('AdminLTE/TimeZone', compact('User'));
         
 
 //print_r(timezone_abbreviations_list());
@@ -466,11 +473,95 @@ $tzlist = timezone_abbreviations_list();
 //return view('AdminLTE/TimeZone',compact('User'));
 
 
-
         
-    }
+
+            }
         }
+   
     }
+    
+    public function delete()
+    {
+        $Id='';
+         $User = DB::table('TimeZone')->select("*")->where('Id','=',$Id)->delete('Id')->get();
+         
+//         print_($User);
+         
+         
+    }
+    
+    
+    
+    
+    
+    
+  
+public function excelFormatTimeZone() {
+       $users = DB::table('TimeZone')->select('*')->get();
+       $users=  json_decode(json_encode($users),true);
+       Excel::create('TimeZone', function($excel) use($users) {
+           $excel->sheet('Sheet 1', function($sheet) use($users) {
+               $sheet->fromArray($users);
+           });
+       })->export('xls');
+       
+         $user = DB::table('AdminLTE')->select('*')->get();
+       $user=  json_decode(json_encode($user),true);
+       Excel::create('AdminLTE', function($excel) use($user) {
+           $excel->sheet('Sheet 1', function($sheet) use($user) {
+               $sheet->fromArray($user);
+           });
+       })->export('xls');
+
+   }
+
+   public function excelFormatAdminLTE() {
+      
+         $user = DB::table('AdminLTE')->select('*')->get();
+       $user=  json_decode(json_encode($user),true);
+       Excel::create('AdminLTE', function($excel) use($user) {
+           $excel->sheet('Sheet 1', function($sheet) use($user) {
+               $sheet->fromArray($user);
+           });
+       })->export('xls');
+
+   }
+    public function excelFormatLogs() {
+      
+         $user = DB::table('Logs')->select('*')->get();
+       $user=  json_decode(json_encode($user),true);
+       Excel::create('Logs', function($excel) use($user) {
+           $excel->sheet('Sheet 1', function($sheet) use($user) {
+               $sheet->fromArray($user);
+           });
+       })->export('xls');
+
+   }
+    public function excelFormatFileUpload() {
+      
+         $user = DB::table('FileUpload')->select('*')->get();
+       $user=  json_decode(json_encode($user),true);
+       Excel::create('FileUpload', function($excel) use($user) {
+           $excel->sheet('Sheet 1', function($sheet) use($user) {
+               $sheet->fromArray($user);
+           });
+       })->export('xls');
+
+   }
+   public function pdfFormatFileUpload() {
+      
+         $user =DB::table('FileUpload')->select('*')->get();
+       $user=  json_decode(json_encode($user),true);
+       $pdf=PDF::loadView('pdf.FileUpload');
+       return $pdf->stream('FileUpload.pdf');
+       
+       
+      
+
+   }
+    
+    
+    
     
 
 }

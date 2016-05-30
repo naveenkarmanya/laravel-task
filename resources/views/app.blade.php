@@ -35,24 +35,33 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
 
+        
+        
+        
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" type="text/css"> 
- <script src="https://code.jquery.com/jquery-1.12.3.min.js" type="text/javascript"></script>
-        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript" ></script>
-
-       
+        
         <link href="/css/bootstrap.min.css" type="text/css">
-
-
+<link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" type="text/css"> 
+ 
+<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript" ></script>
 
         <script>
 $(document).ready(function () {
     $('#example').DataTable({
         "pagingType": "full_numbers"
     });
-});
+
+
+
+                });
+
+
+
+         
 
         </script>
+        
+        
 
 
         <style>

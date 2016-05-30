@@ -2,6 +2,7 @@
 @extends('app')
 @section('content')
 
+ 
 
 
 
@@ -14,9 +15,10 @@
         <tr>
             <th>Id</th>
             <th>TimeZone Name</th>
-            <th>offset</th>
-            <th></th>
-            <th></th>
+            <th>Offset</th>
+            <th>EDIT</th>
+            <th>DELETE</th>
+            <th>SAVE</th>
 
         </tr>
     </thead>
@@ -30,6 +32,10 @@
              <td>{{$value['Id']}}</td>
             <td>{{$value['Name']}}</td>
             <td>{{$value['Offset']}}</td>
+            <td><a href="{{URL::Route('welcome')}}">EDIT</a></td>
+            <td><a href="{{URL::Route('delete')}}">DELETE</a></td>
+            <td><a href="{{URL::Route('welcome')}}">DONE</a></td>
+            
            
 
         </tr> 
@@ -46,8 +52,9 @@
             <th>Id</th>
             <th>TimeZone Name</th>
             <th>Offset</th>
-            <th></th>
-            <th></th>
+            <th>EDIT</th>
+            <th>DELETE</th>
+            <th>SAVE</th>
 
         </tr>
 

@@ -109,10 +109,34 @@ Route::any('TimeZone', array(
     'uses' => 'AdminController@TimeZone'
 ));
 
+Route::any('delete', array(
+    'as' => 'delete',
+    'uses' => 'AdminController@delete'
+));
 
 
 
 
+Route::get('excelFormatTimeZone', 
+[
+  'as' => 'excelFormatTimeZone',
+  'uses' => 'AdminController@excelFormatTimeZone'
+]);
+Route::get('excelFormatAdminLTE', 
+[
+  'as' => 'excelFormatAdminLTE',
+  'uses' => 'AdminController@excelFormatAdminLTE'
+]);
+Route::get('excelFormatLogs', 
+[
+  'as' => 'excelFormatLogs',
+  'uses' => 'AdminController@excelFormatLogs'
+]);
+Route::get('pdfFormatFileUpload', 
+[
+  'as' => 'pdfFormatFileUpload',
+  'uses' => 'AdminController@pdfFormatFileUpload'
+]);
 
 
 
