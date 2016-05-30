@@ -106,7 +106,7 @@ Route::any('UpdateProfile', array(
 
 Route::any('TimeZone', array(
     'as' => 'TimeZone',
-    'uses' => 'AdminController@get_timezone_offset'
+    'uses' => 'AdminController@TimeZone'
 ));
 
 

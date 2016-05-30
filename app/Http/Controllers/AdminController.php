@@ -18,6 +18,7 @@ use App\Usedata;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\File;
 use Illuminate\Pagination\Paginator;
+use App\TimeZone;
 
 class AdminController extends Controller {
 
@@ -430,22 +431,35 @@ class AdminController extends Controller {
             $message->to($Email, 'naveen')->subject('test mail');
      });
      
-//     return view('AdminLTE/forgotpassword', compact('User'));
+     return view('AdminLTE/index', compact('User'));
         
         
         
     }
 
-    public function get_timezone_offset($remote_tz, $origin_tz = null) {
+    public function TimeZone() {
 
 
-//$tzlist=timezone_abbreviations_list();
-//$tzlist=  json_encode($tzlist);
-//   print_r($tzlist);
-        //
-//
+$tzlist = timezone_abbreviations_list();
+        $tzlist = json_decode(json_encode($tzlist), true);
+        foreach ($tzlist as $value) {
+            foreach ($value as $val) {
+               
+                $offset = $val['offset'];
+                $name = $val['timezone_id'];
+              
+                 $insert = DB::table('TimeZone')->insert(['Name' => $name, 'Offset' => $offset]);
+               $User = DB::table('TimeZone')->select("*")->get();
+                      
+         
+          $User = json_decode(json_encode($User), true);
+         // print_r($User);
+          
+                return view('AdminLTE/TimeZone', compact('User'));
+        
+
 //print_r(timezone_abbreviations_list());
-// $insert = DB::table('TimeZone')->insert(['Name' => $tzlist['timezone_id'], 'Offset' => $tzlist['offset']]);
+//
 //
 //        $User = DB::table('TimeZone')->select("*")->get();
 //        print_r($User);
@@ -453,17 +467,10 @@ class AdminController extends Controller {
 
 
 
-        if ($origin_tz === null) {
-            if (!is_string($origin_tz = date_default_timezone_get())) {
-                return false; // A UTC timestamp was returned -- bail out!
-            }
-        }
-        $origin_dtz = new DateTimeZone($origin_tz);
-        $remote_dtz = new DateTimeZone($remote_tz);
-        $origin_dt = new DateTime("now", $origin_dtz);
-        $remote_dt = new DateTime("now", $remote_dtz);
-        $offset = $origin_dtz->getOffset($origin_dt) - $remote_dtz->getOffset($remote_dt);
-        print_r($offset);
+        
     }
+        }
+    }
+    
 
 }

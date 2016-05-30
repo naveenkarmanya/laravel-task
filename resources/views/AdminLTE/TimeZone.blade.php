@@ -12,6 +12,7 @@
 
     <thead>
         <tr>
+            <th>Id</th>
             <th>TimeZone Name</th>
             <th>offset</th>
             <th></th>
@@ -20,17 +21,20 @@
         </tr>
     </thead>
     <tbody>
-       @foreach($tzlist as $value)
-    @foreach($value as $values)
+       @foreach($User as $value)
+   
+ 
 
         <tr>
-            <td>{{$User['timezone_id']}}</td>
-            <td>{{$User['offset']}}</td>
+           
+             <td>{{$value['Id']}}</td>
+            <td>{{$value['Name']}}</td>
+            <td>{{$value['Offset']}}</td>
            
 
         </tr> 
         @endforeach
-@endforeach  
+
 
 
 
@@ -39,8 +43,9 @@
     <tfoot>
 
         <tr>
+            <th>Id</th>
             <th>TimeZone Name</th>
-            <th>offset</th>
+            <th>Offset</th>
             <th></th>
             <th></th>
 
