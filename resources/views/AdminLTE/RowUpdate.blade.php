@@ -13,7 +13,7 @@
 
     <thead>
         <tr>
-            
+
             <th>Id</th>
             <th>TimeZone Name</th>
             <th>Offset</th>
@@ -27,11 +27,11 @@
 
 
         <tr>
-            
+
             <td>{{$value['Id']}}</td>
             <td>{{$value['Name']}}</td>
             <td>{{$value['Offset']}}</td>
-            
+
 
 
 
@@ -45,7 +45,7 @@
     <tfoot>
 
         <tr>
-           
+
             <th>Id</th>
             <th>TimeZone Name</th>
             <th>Offset</th>

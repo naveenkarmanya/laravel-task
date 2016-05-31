@@ -17,37 +17,37 @@
 
             <p class="login-box-msg">Update Profile</p>
 
-            <form  method="post" action="{{URL::Route('UpdateProfile')}}">
+            <form  method="post" >
 
                 <div class="form-group has-feedback">
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                    <b class="bold"> FullName</b>: <input type="text" class="form-control name disabled" name="fullname" id="fullname" placeholder="Full name" value="{{$Update[0]['FullName']}}">
+                    <b class="bold"> FullName</b>: {{$Update[0]['FullName']}}
                 </div>
                 <div class="form-group has-feedback">
 
-                    <b class="bold"> Address</b>:<input type='text' class="form-control name" name="textarea" id="textarea" placeholder="Address" value='{{$Update[0]['Address']}}'>
+                    <b class="bold"> Address</b>:{{$Update[0]['Address']}}
                 </div>
                 <div class="form-group has-feedback">
-                    <b class="bold"> City</b>: <input type="text" class="form-control password" name="city" id="city" placeholder="City" value="{{$Update[0]['City']}}">
-
-                </div>
-                <div class="form-group has-feedback">
-                    <b class="bold"> State</b>: <input type="text" class="form-control retypepassword" name="state" id="state" placeholder="State" value="{{$Update[0]['State']}}">
+                    <b class="bold"> City</b>: {{$Update[0]['City']}}
 
                 </div>
                 <div class="form-group has-feedback">
+                    <b class="bold"> State</b>: {{$Update[0]['State']}}
 
-                    <b class="bold"> Phone</b>: <input type="text" class="form-control" placeholder="Phone" id="phone" name="phone" value="{{$Update[0]['Phone']}}">
+                </div>
+                <div class="form-group has-feedback">
+
+                    <b class="bold"> Phone</b>: {{$Update[0]['Phone']}}
 
                 </div>
 
                 <div class="form-group has-feedback">
 
-                    <b class="bold"> Email Address</b>:<input type="email" class="form-control" placeholder="User Name" id="email" name="email" value="{{$Update[0]['email']}}">
+                    <b class="bold"> Email Address</b>:{{$Update[0]['email']}}
                 </div>
                 <div class="form-group has-feedback">
 
-                    <b class="bold"> Account Number</b>:<input type="text" class="form-control" placeholder="Account Number" id="AccountNumber" name="AccountNumber" value="">
+                    <b class="bold"> Account Number</b>:{{$Update[0]['AccountNumber']}}
                 </div>
 
 
@@ -62,7 +62,7 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-xs-4">
-                        <input type="submit" class="btn btn-primary btn-block btn-flat register" value="Update">
+                       
             <!--    <a href="{{URL::Route('login')}}"  ><input type="button" class="btn btn-primary btn-block btn-flat" value="BACK"></a>-->
 
                     </div>

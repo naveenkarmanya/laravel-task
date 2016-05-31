@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -22,8 +21,6 @@ use Illuminate\Pagination\Paginator;
 use App\TimeZone;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
-
-
 
 class AdminController extends Controller {
 
@@ -89,7 +86,7 @@ class AdminController extends Controller {
         $State = Input::get('state');
         $Phone = Input::get('phone');
         $Email = Input::get('email');
-       // $AccountNumber = Input::get('AccountNumber');
+        // $AccountNumber = Input::get('AccountNumber');
         $_len = 20;
         $type = 'alpha_numeric';
 
@@ -110,7 +107,7 @@ class AdminController extends Controller {
 //    return $password;       // Returns the generated Pass
 //print_r($password);
         $hashed_random_password = md5($password);
-       // print_r($hashed_random_password);
+        // print_r($hashed_random_password);
 
 
 
@@ -127,7 +124,7 @@ class AdminController extends Controller {
         }
 
 // $hashed_random_password = (str_random(20));
-       // print_r($password);
+        // print_r($password);
 //        print_r($password);
 
 
@@ -324,6 +321,26 @@ class AdminController extends Controller {
 
         return view('AdminLTE/Profile', compact('Update'));
     }
+    
+    public function ViewProfile() {
+        session()->regenerate();
+
+        $Email = Input::get('email');
+
+
+        $data['email'] = session::get('email');
+
+//        print_r ($data);
+
+        $View = DB::table('AdminLTE')->select('*')->where('email', '=', $data['email'])->get();
+
+        $Update = json_decode(json_encode($View), true);
+       //print_r($Update);
+
+
+        return view('AdminLTE/ViewProfile', compact('Update'));
+    }
+    
 
     public function UpdateProfile() {
         $FullName = Input::get('fullname');
@@ -410,60 +427,56 @@ class AdminController extends Controller {
 
         return view('AdminLTE/DataTable', compact('upload'));
     }
-    
-     public function forgotpassword() {
-         
-         return view('AdminLTE/forgotpassword');
-         
-     }
-    
+
+    public function forgotpassword() {
+
+        return view('AdminLTE/forgotpassword');
+    }
+
     public function sentpassword() {
 
-       
+
         $Email = Input::get('email');
 
- 
+
 
 //        print_r($hashed);
         $Update = DB::table('AdminLTE')->select('Password')->where('email', '=', $Email)->get();
         $User = json_decode(json_encode($Update), true);
-         
-     foreach($User as $Users)
-          foreach($Users as $value)
-        print_r($value);
-        
+
+        foreach ($User as $Users)
+            foreach ($Users as $value)
+                print_r($value);
+
         Mail::send('email/PasswordNew', array('value' => $value), function($message)use($Email) {
             $message->to($Email, 'naveen')->subject('test mail');
-     });
-     
-     return view('AdminLTE/index', compact('User'));
-        
-        
-        
+        });
+
+        return view('AdminLTE/index', compact('User'));
     }
 
     public function TimeZone() {
 
 
-$tzlist = timezone_abbreviations_list();
+        $tzlist = timezone_abbreviations_list();
         $tzlist = json_decode(json_encode($tzlist), true);
         //print_r($tzlist);
         foreach ($tzlist as $value) {
             foreach ($value as $val) {
-               
+
                 $offset = $val['offset'];
                 $name = $val['timezone_id'];
-              
-              
-                 $insert = DB::table('TimeZone')->insert(['Name' => $name, 'Offset' => $offset]);
-               $User = DB::table('TimeZone')->select("*")->get();
-                      
-         
-          $User = json_decode(json_encode($User), true);
+
+
+                $insert = DB::table('TimeZone')->insert(['Name' => $name, 'Offset' => $offset]);
+                $User = DB::table('TimeZone')->select("*")->get();
+
+
+                $User = json_decode(json_encode($User), true);
 // print_r($User);
-          
-  return view('AdminLTE/TimeZone', compact('User'));
-        
+
+                return view('AdminLTE/TimeZone', compact('User'));
+
 
 //print_r(timezone_abbreviations_list());
 //
@@ -471,169 +484,141 @@ $tzlist = timezone_abbreviations_list();
 //        $User = DB::table('TimeZone')->select("*")->get();
 //        print_r($User);
 //return view('AdminLTE/TimeZone',compact('User'));
-
-
-        
-
             }
         }
-   
     }
- 
-    
-  
-public function excelFormatTimeZone() {
-       $users = DB::table('TimeZone')->select('*')->get();
-       $users=  json_decode(json_encode($users),true);
-       Excel::create('TimeZone', function($excel) use($users) {
-           $excel->sheet('Sheet 1', function($sheet) use($users) {
-               $sheet->fromArray($users);
-           });
-       })->export('xls');
-       
-         $user = DB::table('AdminLTE')->select('*')->get();
-       $user=  json_decode(json_encode($user),true);
-       Excel::create('AdminLTE', function($excel) use($user) {
-           $excel->sheet('Sheet 1', function($sheet) use($user) {
-               $sheet->fromArray($user);
-           });
-       })->export('xls');
 
-   }
+    public function excelFormatTimeZone() {
+        $users = DB::table('TimeZone')->select('*')->get();
+        $users = json_decode(json_encode($users), true);
+        Excel::create('TimeZone', function($excel) use($users) {
+            $excel->sheet('Sheet 1', function($sheet) use($users) {
+                $sheet->fromArray($users);
+            });
+        })->export('xls');
 
-   public function excelFormatAdminLTE() {
-      
-         $user = DB::table('AdminLTE')->select('*')->get();
-       $user=  json_decode(json_encode($user),true);
-       Excel::create('AdminLTE', function($excel) use($user) {
-           $excel->sheet('Sheet 1', function($sheet) use($user) {
-               $sheet->fromArray($user);
-           });
-       })->export('xls');
+        $user = DB::table('AdminLTE')->select('*')->get();
+        $user = json_decode(json_encode($user), true);
+        Excel::create('AdminLTE', function($excel) use($user) {
+            $excel->sheet('Sheet 1', function($sheet) use($user) {
+                $sheet->fromArray($user);
+            });
+        })->export('xls');
+    }
 
-   }
+    public function excelFormatAdminLTE() {
+
+        $user = DB::table('AdminLTE')->select('*')->get();
+        $user = json_decode(json_encode($user), true);
+        Excel::create('AdminLTE', function($excel) use($user) {
+            $excel->sheet('Sheet 1', function($sheet) use($user) {
+                $sheet->fromArray($user);
+            });
+        })->export('xls');
+    }
+
     public function excelFormatLogs() {
-      
-         $user = DB::table('Logs')->select('*')->get();
-       $user=  json_decode(json_encode($user),true);
-       Excel::create('Logs', function($excel) use($user) {
-           $excel->sheet('Sheet 1', function($sheet) use($user) {
-               $sheet->fromArray($user);
-           });
-       })->export('xls');
 
-   }
+        $user = DB::table('Logs')->select('*')->get();
+        $user = json_decode(json_encode($user), true);
+        Excel::create('Logs', function($excel) use($user) {
+            $excel->sheet('Sheet 1', function($sheet) use($user) {
+                $sheet->fromArray($user);
+            });
+        })->export('xls');
+    }
+
     public function excelFormatFileUpload() {
-      
-         $user = DB::table('FileUpload')->select('*')->get();
-       $user=  json_decode(json_encode($user),true);
-       Excel::create('FileUpload', function($excel) use($user) {
-           $excel->sheet('Sheet 1', function($sheet) use($user) {
-               $sheet->fromArray($user);
-           });
-       })->export('xls');
 
-   }
-   public function pdfFormatTimeZone() {
-       $user = DB::table('TimeZone')->select('*')->get();
-       $user=  json_decode(json_encode($user),true);
-       $pdf=PDF::loadView('pdf.TimeZone',  compact('user'));
-       return $pdf->stream('TimeZone.pdf');
-       
+        $user = DB::table('FileUpload')->select('*')->get();
+        $user = json_decode(json_encode($user), true);
+        Excel::create('FileUpload', function($excel) use($user) {
+            $excel->sheet('Sheet 1', function($sheet) use($user) {
+                $sheet->fromArray($user);
+            });
+        })->export('xls');
+    }
 
-   }
+    public function pdfFormatTimeZone() {
+        $user = DB::table('TimeZone')->select('*')->get();
+        $user = json_decode(json_encode($user), true);
+        $pdf = PDF::loadView('pdf.TimeZone', compact('user'));
+        return $pdf->stream('TimeZone.pdf');
+    }
 
-   public function pdfFormatAdminLTE() {
-      
-         $user = DB::table('AdminLTE')->select('*')->get();
-       $user=  json_decode(json_encode($user),true);
-       $pdf=PDF::loadView('pdf.AdminLte',  compact('user'));
-       return $pdf->stream('AdminLte.pdf');
+    public function pdfFormatAdminLTE() {
 
-   }
+        $user = DB::table('AdminLTE')->select('*')->get();
+        $user = json_decode(json_encode($user), true);
+        $pdf = PDF::loadView('pdf.AdminLte', compact('user'));
+        return $pdf->stream('AdminLte.pdf');
+    }
+
     public function pdfFormatLogs() {
-      
-         $user = DB::table('Logs')->select('*')->get();
-       $user=  json_decode(json_encode($user),true);
-       $pdf=PDF::loadView('pdf.Logs',  compact('user'));
-       return $pdf->stream('Logs.pdf');
 
-   }
-   
-   
-   
-   
-   public function pdfFormatFileUpload() {
-      
-         $user = DB::table('FileUpload')->select('*')->get();
-       $user=  json_decode(json_encode($user),true);
+        $user = DB::table('Logs')->select('*')->get();
+        $user = json_decode(json_encode($user), true);
+        $pdf = PDF::loadView('pdf.Logs', compact('user'));
+        return $pdf->stream('Logs.pdf');
+    }
 
-       $pdf=PDF::loadView('pdf.FileUpload',  compact('user'));
-       return $pdf->stream('FileUpload.pdf');
-       
-       
-      
+    public function pdfFormatFileUpload() {
 
-   }
-   
-   public function dataTimeZone($data)
-   {
-      
-      
-      //echo $data;
-       
-       
-       $User = DB::table('TimeZone')->select("*")->where('Id','=',$data)->get();          
-          $User = json_decode(json_encode($User), true);
-       return view('AdminLTE/dataTimeZone',compact('User'));    
-   }
-   
-    public function dataTimeZoneDelete($data)
-   {
-      
-      
-      //echo $data;
-       
-       
-       DB::table('TimeZone')->where('Id','=',$data)->delete();   
-$User=DB::table('TimeZone')->select("*")->where('Id','=',$data)->get();
-            
-          $User = json_decode(json_encode($User), true);
-       return view('AdminLTE/dataTimeZoneDelete',compact('User'));    
-   }
-   
-    public function SaveRows()
-   {
-      $ID=Input::get('Id');
-      $Name=Input::get('Name');
-      $Offset=Input::get('Offset');
-      
-       
-       
-        DB::table('TimeZone')->where('Id','=',$ID)->update(['Name' => $Name,'Offset'=>$Offset]);          
-          
-        $UserUpdate=DB::table('TimeZone')->select("*")->where('Id','=',$ID)->get();
+        $user = DB::table('FileUpload')->select('*')->get();
+        $user = json_decode(json_encode($user), true);
+
+        $pdf = PDF::loadView('pdf.FileUpload', compact('user'));
+        return $pdf->stream('FileUpload.pdf');
+    }
+
+    public function dataTimeZone($data) {
+
+
+        //echo $data;
+
+
+        $User = DB::table('TimeZone')->select("*")->where('Id', '=', $data)->get();
+        $User = json_decode(json_encode($User), true);
+        return view('AdminLTE/dataTimeZone', compact('User'));
+    }
+
+    public function dataTimeZoneDelete($data) {
+
+
+        //echo $data;
+
+
+        DB::table('TimeZone')->where('Id', '=', $data)->delete();
+        $User = DB::table('TimeZone')->select("*")->where('Id', '=', $data)->get();
+
+        $User = json_decode(json_encode($User), true);
+        return view('AdminLTE/dataTimeZoneDelete', compact('User'));
+    }
+
+    public function SaveRows() {
+        $ID = Input::get('Id');
+        $Name = Input::get('Name');
+        $Offset = Input::get('Offset');
+
+
+
+        DB::table('TimeZone')->where('Id', '=', $ID)->update(['Name' => $Name, 'Offset' => $Offset]);
+
+        $UserUpdate = DB::table('TimeZone')->select("*")->where('Id', '=', $ID)->get();
         $UserUpdate = json_decode(json_encode($UserUpdate), true);
-         //print_r($User);
-       return view('AdminLTE/RowUpdate',compact('UserUpdate'));    
-   }
-   
-    
-    
-    
-        public function ViewTimeZone() {
+        //print_r($User);
+        return view('AdminLTE/RowUpdate', compact('UserUpdate'));
+    }
 
-               $User = DB::table('TimeZone')->select("*")->get();
-                      
-         
-          $User = json_decode(json_encode($User), true);
+    public function ViewdataTimeZone($data) {
+
+        $User = DB::table('TimeZone')->where('Id', '=', $data)->select('*')->get();
+
+
+        $User = json_decode(json_encode($User), true);
 // print_r($User);
-          
-  return view('AdminLTE/ViewTimeZone', compact('User'));
- 
 
-            }
-      
-    
+        return view('AdminLTE/ViewdataTimeZone', compact('User'));
+    }
 
 }

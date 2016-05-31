@@ -26,7 +26,7 @@ Route::post('registersubmit', array(
 ));
 
 
-Route::post('Step2', array(
+Route::any('Step2', array(
     'as' => 'login',
     'uses' => 'AdminController@login'
 ));
@@ -97,7 +97,10 @@ Route::any('Profile', array(
     'as' => 'Profile',
     'uses' => 'AdminController@Profile'
 ));
-
+Route::any('ViewProfile', array(
+    'as' => 'ViewProfile',
+    'uses' => 'AdminController@ViewProfile'
+));
 
 Route::any('UpdateProfile', array(
     'as' => 'UpdateProfile',
@@ -123,54 +126,46 @@ Route::post('/SaveRows', array(
 ));
 
 
-Route::get('ViewTimeZone',array(
-    'as'=>'ViewTimeZone',
-    'uses'=>'AdminController@ViewTimeZone'
+Route::get('/ViewdataTimeZone/{data}', array(
+    'as' => 'ViewdataTimeZone',
+    'uses' => 'AdminController@ViewdataTimeZone'
 ));
 
 
 
 
-Route::get('excelFormatTimeZone', 
-[
-  'as' => 'excelFormatTimeZone',
-  'uses' => 'AdminController@excelFormatTimeZone'
+Route::get('excelFormatTimeZone', [
+    'as' => 'excelFormatTimeZone',
+    'uses' => 'AdminController@excelFormatTimeZone'
 ]);
-Route::get('excelFormatAdminLTE', 
-[
-  'as' => 'excelFormatAdminLTE',
-  'uses' => 'AdminController@excelFormatAdminLTE'
+Route::get('excelFormatAdminLTE', [
+    'as' => 'excelFormatAdminLTE',
+    'uses' => 'AdminController@excelFormatAdminLTE'
 ]);
-Route::get('excelFormatLogs', 
-[
-  'as' => 'excelFormatLogs',
-  'uses' => 'AdminController@excelFormatLogs'
+Route::get('excelFormatLogs', [
+    'as' => 'excelFormatLogs',
+    'uses' => 'AdminController@excelFormatLogs'
 ]);
-Route::get('excelFormatFileUpload', 
-[
-  'as' => 'excelFormatFileUpload',
-  'uses' => 'AdminController@excelFormatFileUpload'
+Route::get('excelFormatFileUpload', [
+    'as' => 'excelFormatFileUpload',
+    'uses' => 'AdminController@excelFormatFileUpload'
 ]);
 
-Route::get('pdfFormatTimeZone', 
-[
-  'as' => 'pdfFormatTimeZone',
-  'uses' => 'AdminController@pdfFormatTimeZone'
+Route::get('pdfFormatTimeZone', [
+    'as' => 'pdfFormatTimeZone',
+    'uses' => 'AdminController@pdfFormatTimeZone'
 ]);
-Route::get('pdfFormatAdminLTE', 
-[
-  'as' => 'pdfFormatAdminLTE',
-  'uses' => 'AdminController@pdfFormatAdminLTE'
+Route::get('pdfFormatAdminLTE', [
+    'as' => 'pdfFormatAdminLTE',
+    'uses' => 'AdminController@pdfFormatAdminLTE'
 ]);
-Route::get('pdfFormatLogs', 
-[
-  'as' => 'pdfFormatLogs',
-  'uses' => 'AdminController@pdfFormatLogs'
+Route::get('pdfFormatLogs', [
+    'as' => 'pdfFormatLogs',
+    'uses' => 'AdminController@pdfFormatLogs'
 ]);
-Route::get('pdfFormatFileUpload', 
-[
-  'as' => 'pdfFormatFileUpload',
-  'uses' => 'AdminController@pdfFormatFileUpload'
+Route::get('pdfFormatFileUpload', [
+    'as' => 'pdfFormatFileUpload',
+    'uses' => 'AdminController@pdfFormatFileUpload'
 ]);
 
 

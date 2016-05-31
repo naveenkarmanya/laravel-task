@@ -71,7 +71,7 @@
                                 </label>
                             </div>
                         </div>
-                    
+
                         <!-- /.col -->
                         <div class="col-xs-4">
                             <input type="submit" class="btn btn-primary btn-block btn-flat " value="Sent">

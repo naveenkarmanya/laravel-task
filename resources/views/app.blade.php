@@ -44,7 +44,7 @@
 
         <link href="/css/bootstrap.min.css" type="text/css">
         <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" type="text/css"> 
-     
+
 
         <style>
             html, body {
@@ -210,7 +210,7 @@
                 <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
             </footer>
         </div><!-- ./wrapper -->
-<script src="/js/jquery.min.js" type="text/javascript" ></script>
+        <script src="/js/jquery.min.js" type="text/javascript" ></script>
         <!-- jQuery 2.1.3 -->
 <!--        <script src="{{ asset('/plugins/jQuery/jQuery-2.1.3.min.js') }}"></script>-->
         <!-- jQuery UI 1.11.2 -->
@@ -268,35 +268,43 @@ $.widget.bridge('uibutton', $.ui.button);
         <script src='/js/progress.js' type="text/javascript"></script>
 
 
-   
+
         <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript" ></script>
         <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js" type="text/javascript" ></script>
 
         <script>
 $(document).ready(function () {
-  $('#timeZone').dataTable({
+    $('#timeZone').dataTable({
         "sPaginationType": "full_numbers"
-        
+
     });
 
-var table=$('#timeZone').DataTable();
-$('#timeZone tbody').on('click', '#edit','#delete', function () {
+    var table = $('#timeZone').DataTable();
+    $('#timeZone tbody').on('click', '#edit', function () {
 //        var data = table.row( this ).data();
-        var data = table.row( $(this).parents('tr') ).data();
+        var data = table.row($(this).parents('tr')).data();
         //alert( data[0] +"'s salary is: "+ data[2] )
-       //alert(data);
-        window.location.href='/dataTimeZone/'+data[0];
-      //alert( 'You clicked on '+data[1]+'\'s row' );
-    } );
-    var table2=$('#timeZone').DataTable();
-$('#timeZone tbody').on('click','#delete', function () {
+        //alert(data);
+        window.location.href = '/dataTimeZone/' + data[0];
+        //alert( 'You clicked on '+data[1]+'\'s row' );
+    });
+    var table2 = $('#timeZone').DataTable();
+    $('#timeZone tbody').on('click', '#delete', function () {
 //        var data = table.row( this ).data();
-        var data = table2.row( $(this).parents('tr') ).data();
+        var data = table2.row($(this).parents('tr')).data();
         //alert( data[0] +"'s salary is: "+ data[2] )
-       //alert(data);
-        window.location.href='/dataTimeZoneDelete/'+data[0];
-      //alert( 'You clicked on '+data[1]+'\'s row' );
-    } );
+        //alert(data);
+        window.location.href = '/dataTimeZoneDelete/' + data[0];
+        //alert( 'You clicked on '+data[1]+'\'s row' );
+    });
+    $('#timeZone tbody').on('click', '#view', function () {
+//        var data = table.row( this ).data();
+        var data = table2.row($(this).parents('tr')).data();
+        //alert( data[0] +"'s salary is: "+ data[2] )
+        //alert(data);
+        window.location.href = '/ViewdataTimeZone/' + data[0];
+        //alert( 'You clicked on '+data[1]+'\'s row' );
+    });
 });
 
         </script>

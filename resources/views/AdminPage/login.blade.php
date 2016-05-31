@@ -66,7 +66,7 @@
                     
                     <div class="form-group has-feedback">
                        
-                        <input type="hidden" class="form-control" placeholder="Account Number" id="AccountNumber" name="AccountNumber">
+                        <input type="text" class="form-control" placeholder="Account Number" id="AccountNumber" name="AccountNumber">
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                         <span id="accountnumlocation"></span>
                     </div>
