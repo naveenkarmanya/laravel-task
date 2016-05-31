@@ -1,5 +1,4 @@
 
-
 @extends('app')
 @section('content')
 
@@ -14,8 +13,7 @@
 
     <thead>
         <tr>
-            <th></th>
-            <th></th>
+            
             <th>Id</th>
             <th>TimeZone Name</th>
             <th>Offset</th>
@@ -29,12 +27,11 @@
 
 
         <tr>
-            <td><form id="form2" method="post" action="{{URL::Route('DeleteRows')}}"><input id="form2" type="hidden" name="_token" value="<?php echo csrf_token(); ?>"></form></td>
-            <td></td>
-            <td><input form="form2" type='' name='Id' value='{{$value['Id']}}'></td>
-            <td><input form="form2" type='text' name='Name' value='{{$value['Name']}}'</td>
-            <td><input form="form2" type='text' name="Offset" value='{{$value['Offset']}}'</td>
-            <td><input form="form2" type='submit' value='Delete'></td>
+            
+            <td>{{$value['Id']}}</td>
+            <td>{{$value['Name']}}</td>
+            <td>{{$value['Offset']}}</td>
+            
 
 
 
@@ -48,8 +45,7 @@
     <tfoot>
 
         <tr>
-            <th></th>
-            <th></th>
+           
             <th>Id</th>
             <th>TimeZone Name</th>
             <th>Offset</th>

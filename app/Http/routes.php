@@ -122,10 +122,7 @@ Route::post('/SaveRows', array(
     'uses' => 'AdminController@SaveRows'
 ));
 
-Route::any('DeleteRows', array(
-    'as' => 'DeleteRows',
-    'uses' => 'AdminController@DeleteRows'
-));
+
 Route::get('ViewTimeZone',array(
     'as'=>'ViewTimeZone',
     'uses'=>'AdminController@ViewTimeZone'

@@ -595,7 +595,9 @@ public function excelFormatTimeZone() {
       //echo $data;
        
        
-       $User = DB::table('TimeZone')->select("*")->where('Id','=',$data)->get();          
+       DB::table('TimeZone')->where('Id','=',$data)->delete();   
+$User=DB::table('TimeZone')->select("*")->where('Id','=',$data)->get();
+            
           $User = json_decode(json_encode($User), true);
        return view('AdminLTE/dataTimeZoneDelete',compact('User'));    
    }
@@ -616,21 +618,7 @@ public function excelFormatTimeZone() {
        return view('AdminLTE/RowUpdate',compact('UserUpdate'));    
    }
    
-    public function DeleteRows()
-   {
-      $ID=Input::get('Id');
-      $Name=Input::get('Name');
-      $Offset=Input::get('Offset');
-      
-       
-       
-        DB::table('TimeZone')->where('Id','=',$ID)->delete();          
-           $UserUpdate=DB::table('TimeZone')->select("*")->where('Id','=',$ID)->get();
-        $UserUpdate = json_decode(json_encode($UserUpdate), true);
-        
-         //print_r($User);
-       return view('AdminLTE/DeleteView',compact('UserUpdate'));    
-   }
+    
     
     
         public function ViewTimeZone() {

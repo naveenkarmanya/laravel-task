@@ -4,14 +4,14 @@
 
 
 
-<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+<table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
 
 
 
 
     <thead>
         <tr>
-            <th>FileD</th>
+            <th>FileID</th>
             <th>FileName</th>
             <th>FileType</th>
             <th>FileSize</th>
@@ -22,7 +22,7 @@
         @foreach($upload as $file)
 
         <tr>
-    <input type='text' id='first' value=''>
+            <td>{{$file['FileID']}}</td>
             <td>{{$file['FileName']}}</td>
             <td>{{$file['FileType']}}</td>
             <td>{{$file['FileSize']}}</td>
