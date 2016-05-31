@@ -22,7 +22,7 @@
         @foreach($upload as $file)
 
         <tr>
-            <td>{{$file['FileID']}}</td>
+    <input type='text' id='first' value=''>
             <td>{{$file['FileName']}}</td>
             <td>{{$file['FileType']}}</td>
             <td>{{$file['FileSize']}}</td>

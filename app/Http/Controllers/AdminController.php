@@ -254,7 +254,7 @@ class AdminController extends Controller {
 //print_r($Userss);
                     return view('welcome', compact('info'));
                 } else {
-                    echo "error login details";
+                    echo"<b style='color:red'>Somthing went Wrong Please check Your Login Details And Try Again.</b>";
                 }
             }
         }
@@ -479,21 +479,7 @@ $tzlist = timezone_abbreviations_list();
         }
    
     }
-    
-    public function delete()
-    {
-        $Id='';
-         $User = DB::table('TimeZone')->select("*")->where('Id','=',$Id)->delete('Id')->get();
-         
-//         print_($User);
-         
-         
-    }
-    
-    
-    
-    
-    
+ 
     
   
 public function excelFormatTimeZone() {
@@ -589,9 +575,77 @@ public function excelFormatTimeZone() {
       
 
    }
+   
+   public function dataTimeZone($data)
+   {
+      
+      
+      //echo $data;
+       
+       
+       $User = DB::table('TimeZone')->select("*")->where('Id','=',$data)->get();          
+          $User = json_decode(json_encode($User), true);
+       return view('AdminLTE/dataTimeZone',compact('User'));    
+   }
+   
+    public function dataTimeZoneDelete($data)
+   {
+      
+      
+      //echo $data;
+       
+       
+       $User = DB::table('TimeZone')->select("*")->where('Id','=',$data)->get();          
+          $User = json_decode(json_encode($User), true);
+       return view('AdminLTE/dataTimeZoneDelete',compact('User'));    
+   }
+   
+    public function SaveRows()
+   {
+      $ID=Input::get('Id');
+      $Name=Input::get('Name');
+      $Offset=Input::get('Offset');
+      
+       
+       
+        DB::table('TimeZone')->where('Id','=',$ID)->update(['Name' => $Name,'Offset'=>$Offset]);          
+          
+        $UserUpdate=DB::table('TimeZone')->select("*")->where('Id','=',$ID)->get();
+        $UserUpdate = json_decode(json_encode($UserUpdate), true);
+         //print_r($User);
+       return view('AdminLTE/RowUpdate',compact('UserUpdate'));    
+   }
+   
+    public function DeleteRows()
+   {
+      $ID=Input::get('Id');
+      $Name=Input::get('Name');
+      $Offset=Input::get('Offset');
+      
+       
+       
+        DB::table('TimeZone')->where('Id','=',$ID)->delete();          
+           $UserUpdate=DB::table('TimeZone')->select("*")->where('Id','=',$ID)->get();
+        $UserUpdate = json_decode(json_encode($UserUpdate), true);
+        
+         //print_r($User);
+       return view('AdminLTE/DeleteView',compact('UserUpdate'));    
+   }
     
     
-    
+        public function ViewTimeZone() {
+
+               $User = DB::table('TimeZone')->select("*")->get();
+                      
+         
+          $User = json_decode(json_encode($User), true);
+// print_r($User);
+          
+  return view('AdminLTE/ViewTimeZone', compact('User'));
+ 
+
+            }
+      
     
 
 }

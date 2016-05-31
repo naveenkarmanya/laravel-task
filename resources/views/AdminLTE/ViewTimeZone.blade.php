@@ -16,10 +16,8 @@
             <th>Id</th>
             <th>TimeZone Name</th>
             <th>Offset</th>
-            <th>VIEW</th>
             <th>EDIT</th>
             <th>DELETE</th>
-            
            
 
         </tr>
@@ -34,10 +32,9 @@
              <td>{{$value['Id']}}</td>
             <td>{{$value['Name']}}</td>
             <td>{{$value['Offset']}}</td>
-             <td><a href="{{URL::Route('ViewTimeZone')}}">VIEW</a></td>
             <td><a id='edit'>EDIT</a></td>
             <td><a id='delete'>DELETE</a></td>
-           
+            
             
             
            
@@ -56,10 +53,8 @@
             <th>Id</th>
             <th>TimeZone Name</th>
             <th>Offset</th>
-            <th>VIEW</th>
             <th>EDIT</th>
             <th>DELETE</th>
-            
             
 
         </tr>

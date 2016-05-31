@@ -49,7 +49,7 @@ Route::post('sendpassword', array(
 
 
 
-Route::post('welcome', array(
+Route::any('welcome', array(
     'as' => 'welcome',
     'uses' => 'AdminController@admin'
 ));
@@ -58,7 +58,7 @@ Route::get('AdminLogin', array(
     'as' => 'AdminLogin',
     'uses' => 'AdminController@AdminLogin'
 ));
-Route::post('AdminData', array(
+Route::any('AdminData', array(
     'as' => 'AdminData',
     'uses' => 'AdminController@AdminData'
 ));
@@ -109,9 +109,26 @@ Route::any('TimeZone', array(
     'uses' => 'AdminController@TimeZone'
 ));
 
-Route::any('delete', array(
-    'as' => 'delete',
-    'uses' => 'AdminController@delete'
+Route::get('/dataTimeZone/{data}', array(
+    'as' => 'dataTimeZone',
+    'uses' => 'AdminController@dataTimeZone'
+));
+Route::get('/dataTimeZoneDelete/{data}', array(
+    'as' => 'dataTimeZoneDelete',
+    'uses' => 'AdminController@dataTimeZoneDelete'
+));
+Route::post('/SaveRows', array(
+    'as' => 'SaveRows',
+    'uses' => 'AdminController@SaveRows'
+));
+
+Route::any('DeleteRows', array(
+    'as' => 'DeleteRows',
+    'uses' => 'AdminController@DeleteRows'
+));
+Route::get('ViewTimeZone',array(
+    'as'=>'ViewTimeZone',
+    'uses'=>'AdminController@ViewTimeZone'
 ));
 
 
