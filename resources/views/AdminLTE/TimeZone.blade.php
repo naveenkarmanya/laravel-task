@@ -34,9 +34,9 @@
              <td>{{$value['Id']}}</td>
             <td>{{$value['Name']}}</td>
             <td>{{$value['Offset']}}</td>
-            <td><a id='view'>VIEW</a></td>
-            <td><a id='edit'>EDIT</a></td>
-            <td><a id='delete'>DELETE</a></td>
+            <td><button class="btn-success" id='view'>VIEW</button></td>
+            <td><button class="btn-primary" id='edit'>EDIT</button></td>
+            <td><button class="btn-danger" id='delete'>DELETE</button></td>
            
             
             

@@ -34,5 +34,21 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+    
+    'facebook' => [
+    'client_id' => '1717322445177589',
+    'client_secret' => '088f50b7b938539344fdfdfc4389ee47',
+    'redirect' => 'http://laravel-tasks.karmanya.dev/AdminLogin/callback',
+],
+    'google' => [
+    'client_id' => '',
+    'client_secret' => '',
+    'redirect' => 'http://laravel-tasks.karmanya.dev/AdminLogin/callback',
+],
+    'linkedin' => [
+    'client_id' => '',
+    'client_secret' => '',
+    'redirect' => 'http://laravel-tasks.karmanya.dev/AdminLogin/callback',
+],
 
 ];

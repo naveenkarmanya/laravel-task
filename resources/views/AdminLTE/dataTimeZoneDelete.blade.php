@@ -22,6 +22,7 @@
         </tr>
     </thead>
     <tbody>
+        
         @foreach($User as $value)
 
 

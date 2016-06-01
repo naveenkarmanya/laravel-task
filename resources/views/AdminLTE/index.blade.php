@@ -98,15 +98,16 @@
 
                 </form>
 
-                <!--    <div class="social-auth-links text-center">
+                    <div class="social-auth-links text-center">
                       <p>- OR -</p>
-                      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
+                      <a href="{{URL::Route('facebook')}}" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
                         Facebook</a>
                       <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
                         Google+</a>
-                    </div>-->
-                <!-- /.social-auth-links -->
-
+                      <a href="#" class="btn btn-block btn-social btn-linkedin btn-flat"><i class="fa fa-linkedin"></i> Sign in using
+                        LinkedIn</a>
+                    </div>
+                
                 <a href="{{URL::Route('forgotpassword')}}">I forgot my password</a><br>
                 <a href="{{URl::Route('register')}}" class="text-center">Register a new membership</a>
 

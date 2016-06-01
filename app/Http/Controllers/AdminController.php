@@ -21,6 +21,7 @@ use Illuminate\Pagination\Paginator;
 use App\TimeZone;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
+use Socialite;
 
 class AdminController extends Controller {
 
@@ -321,7 +322,7 @@ class AdminController extends Controller {
 
         return view('AdminLTE/Profile', compact('Update'));
     }
-    
+
     public function ViewProfile() {
         session()->regenerate();
 
@@ -335,12 +336,11 @@ class AdminController extends Controller {
         $View = DB::table('AdminLTE')->select('*')->where('email', '=', $data['email'])->get();
 
         $Update = json_decode(json_encode($View), true);
-       //print_r($Update);
+        //print_r($Update);
 
 
         return view('AdminLTE/ViewProfile', compact('Update'));
     }
-    
 
     public function UpdateProfile() {
         $FullName = Input::get('fullname');
@@ -619,6 +619,34 @@ class AdminController extends Controller {
 // print_r($User);
 
         return view('AdminLTE/ViewdataTimeZone', compact('User'));
+    }
+
+    public function redirectToProvider() {
+        
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    
+    public function handleProviderCallback() {
+        $user = Socialite::driver('facebook')->user();
+        echo "<pre>";
+print_r($user);
+echo "</pre>";
+exit;
+
+       $token= $user->token;
+      
+
+// All Providers
+$user->getId();
+$user->getNickname();
+$user->getName();
+$user->getEmail();
+$user->getAvatar();
+       echo $token;
+       
+        
+        
     }
 
 }

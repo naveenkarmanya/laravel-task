@@ -177,5 +177,17 @@ Route::get('Logout', array(
 
 
 
+Route::get('auth/facebook', array(
+    'as' => 'facebook',
+    'uses' => 'AdminController@redirectToProvider'
+));
+Route::any('AdminLogin/callback', array(
+    'as' => 'callback',
+    'uses' => 'AdminController@handleProviderCallback'
+));
+
+
+
+
 
 
