@@ -170,20 +170,49 @@ Route::get('pdfFormatFileUpload', [
 
 
 
-Route::get('Logout', array(
+Route::any('Logout', array(
     'as' => 'Logout',
     'uses' => 'AdminController@Logout'
 ));
 
 
 
-Route::get('auth/facebook', array(
+Route::get('facebook', array(
     'as' => 'facebook',
     'uses' => 'AdminController@redirectToProvider'
 ));
-Route::any('AdminLogin/callback', array(
+Route::any('callback', array(
     'as' => 'callback',
     'uses' => 'AdminController@handleProviderCallback'
+));
+
+Route::get('LinkedIn', array(
+    'as' => 'linkedin',
+    'uses' => 'AdminController@redirectToLinkedIn'
+));
+Route::any('linkedin/callback', array(
+    'as' => 'linkedin/callback',
+    'uses' => 'AdminController@LinkedInCallback'
+));
+Route::get('Google', array(
+    'as' => 'google',
+    'uses' => 'AdminController@redirectToGoogle'
+));
+Route::any('google/callback', array(
+    'as' => 'google/callback',
+    'uses' => 'AdminController@googleCallback'
+));
+
+
+
+
+Route::any('testdatatable', array(
+    'as' => 'testdatatable',
+    'uses' => 'AdminController@testdatatable'
+));
+Route::get('ajaxcall', array(
+    'as' => 'ajaxcall',
+    'uses' => 'AdminController@ajaxcall'
 ));
 
 

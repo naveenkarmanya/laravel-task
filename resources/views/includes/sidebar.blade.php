@@ -34,14 +34,14 @@
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href='{{'welcome'}}'><i class="fa fa-circle-o"></i> Dashboard View</a>
+                    <li class="active"><a href='{{Url::Route('welcome')}}'><i class="fa fa-circle-o"></i> Dashboard View</a>
 
                     </li>
-                    <li class="active"><a href='{{'test'}}'><i class="fa fa-circle-o"></i> Browser Details</a>
+                    <li class="active"><a href='{{URl::Route('test')}}'><i class="fa fa-circle-o"></i> Browser Details</a>
 
                     </li>
-                    
-                     <li class="active"><a href='{{'TimeZone'}}'><i class="fa fa-circle-o"></i> Time Zone</a>
+
+                    <li class="active"><a href='{{URL::Route('TimeZone')}}'><i class="fa fa-circle-o"></i> Time Zone</a>
 
                     </li>
 
@@ -80,13 +80,13 @@
                     <i class="fa fa-dashboard"></i> <span>User Profile</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href='{{'Profile'}}'><i class="fa fa-circle-o"></i> Update Profile</a>
+                    <li class="active"><a href='{{URL::Route('Profile')}}'><i class="fa fa-circle-o"></i> Update Profile</a>
 
                     </li>
-                    <li class="active"><a href='{{'ChangePassword'}}'><i class="fa fa-circle-o"></i> Update Password</a>
+                    <li class="active"><a href='{{URL::Route('ChangePassword')}}'><i class="fa fa-circle-o"></i> Update Password</a>
 
                     </li>
-                    <li class="active"><a href='{{'Logout'}}'><i class="fa fa-circle-o"></i> LOGOUT</a>
+                    <li class="active"><a href='{{URL::Route('Logout')}}'><i class="fa fa-circle-o"></i> LOGOUT</a>
 
                     </li>
 

@@ -26,6 +26,7 @@ use Socialite;
 class AdminController extends Controller {
 
     public function admin() {
+
         return view('welcome');
     }
 
@@ -152,6 +153,7 @@ class AdminController extends Controller {
 
         session([ 'email' => $Email]);
         $sessionemail['email'] = session::get('email');
+
 //        print_r($hashed);
         $User = DB::table('AdminLTE')->select('Password')->where('email', "=", $Email)->get();
 //        $User = json_decode(json_encode($User), true);
@@ -468,7 +470,7 @@ class AdminController extends Controller {
                 $name = $val['timezone_id'];
 
 
-                $insert = DB::table('TimeZone')->insert(['Name' => $name, 'Offset' => $offset]);
+                DB::table('TimeZone')->insert(['Name' => $name, 'Offset' => $offset]);
                 $User = DB::table('TimeZone')->select("*")->get();
 
 
@@ -622,31 +624,422 @@ class AdminController extends Controller {
     }
 
     public function redirectToProvider() {
-        
+
         return Socialite::driver('facebook')->redirect();
     }
 
-    
-    public function handleProviderCallback() {
+    public function handleProviderCallback(Request $request) {
+        session()->regenerate();
+
         $user = Socialite::driver('facebook')->user();
-        echo "<pre>";
-print_r($user);
-echo "</pre>";
-exit;
 
-       $token= $user->token;
-      
+        $token = $user->token;
+        $Id = $user->getId();
+        $Name = $user->getName();
+        $Email = $user->getEmail();
+        session(['email' => $Email]);
+//echo $data['email'];
+        //echo $data;
+        $table = DB::table('AdminLTE')->select('email')->where('email', '=', $Email)->count();
+        //$tablevalue = json_decode(json_encode($table), true);
+        //print_r($table);
+        //echo $table;
+//echo $datatable,"<br><br>";
+        if ($table == 0) {
 
-// All Providers
-$user->getId();
-$user->getNickname();
-$user->getName();
-$user->getEmail();
-$user->getAvatar();
-       echo $token;
-       
-        
-        
+            DB::table('AdminLTE')->where('email', "=", $Email)->insert(['FullName' => $Name, 'Socialite_ID' => $Id, 'email' => $Email]);
+            $Insert = DB::table('AdminLTE')->where('email', '=', $Email)->get();
+            $Insert = json_decode(json_encode($Insert), true);
+            //print_r($Insert);
+        } else {
+
+            DB::table('AdminLTE')->where('email', "=", $Email)->update(['FullName' => $Name, 'Socialite_ID' => $Id]);
+            $Update = DB::table('AdminLTE')->where('email', '=', $Email)->get();
+            $Update = json_decode(json_encode($Update), true);
+//print_r($Update);
+        }
+        $user['useragent'] = $request->server('HTTP_USER_AGENT');
+        $input['ip'] = $request->ip();
+
+        // print_r($user);
+        // print_r($input);
+        $user['useragent'] = $request->server('HTTP_USER_AGENT');
+        $input['ip'] = $request->ip();
+
+//                    print_r($user);
+//          print_r($input);
+
+
+
+        $u_agent = $_SERVER['HTTP_USER_AGENT'];
+        $bname = 'Unknown';
+        $platform = 'Unknown';
+        $version = "";
+
+
+        $ipAddress = $_SERVER['REMOTE_ADDR'];
+        if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+            $ipAddress = array_pop(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
+        }
+
+
+
+        //First get the platform?
+        if (preg_match('/linux/i', $u_agent)) {
+            $platform = 'linux';
+        } elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
+            $platform = 'mac';
+        } elseif (preg_match('/windows|win32/i', $u_agent)) {
+            $platform = 'windows';
+        }
+
+        // Next get the name of the useragent yes seperately and for good reason
+        if (preg_match('/MSIE/i', $u_agent) && !preg_match('/Opera/i', $u_agent)) {
+            $bname = 'Internet Explorer';
+            $ub = "MSIE";
+        } elseif (preg_match('/Firefox/i', $u_agent)) {
+            $bname = 'Mozilla Firefox';
+            $ub = "Firefox";
+        } elseif (preg_match('/Chrome/i', $u_agent)) {
+            $bname = 'Google Chrome';
+            $ub = "Chrome";
+        } elseif (preg_match('/Safari/i', $u_agent)) {
+            $bname = 'Apple Safari';
+            $ub = "Safari";
+        } elseif (preg_match('/Opera/i', $u_agent)) {
+            $bname = 'Opera';
+            $ub = "Opera";
+        } elseif (preg_match('/Netscape/i', $u_agent)) {
+            $bname = 'Netscape';
+            $ub = "Netscape";
+        }
+
+        // finally get the correct version number
+        $known = array('Version', $ub, 'other');
+        $pattern = '#(?<browser>' . join('|', $known) .
+                ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+        if (!preg_match_all($pattern, $u_agent, $matches)) {
+            // we have no matching number just continue
+        }
+
+        // see how many we have
+        $i = count($matches['browser']);
+        if ($i != 1) {
+            //we will have two since we are not using 'other' argument yet
+            //see if version is before or after the name
+            if (strripos($u_agent, "Version") < strripos($u_agent, $ub)) {
+                $version = $matches['version'][0];
+            } else {
+                $version = $matches['version'][1];
+            }
+        } else {
+            $version = $matches['version'][0];
+        }
+
+        // check if we have a number
+        if ($version == null || $version == "") {
+            $version = "?";
+        }
+        $yourbrowser = ['userAgent' => $u_agent, 'name' => $bname, 'version' => $version, 'platform' => $platform, 'pattern' => $pattern];
+        $jsonDetails = json_encode($yourbrowser);
+
+        DB::table('Logs')->insert(['BrowserDetails' => $jsonDetails, 'BrowserName' => $yourbrowser['name'], 'BrowserVersion' => $yourbrowser['version'], 'BrowserPlateform' => $yourbrowser['platform'], 'BrowserPattern' => $yourbrowser['pattern'], 'IPAddress' => $input['ip'], 'UserName' => $Email]);
+
+
+
+
+
+
+        return view('welcome');
+    }
+
+    public function redirectToLinkedIn() {
+
+        return Socialite::driver('linkedin')->redirect();
+    }
+
+    public function LinkedInCallback(Request $request) {
+        session()->regenerate();
+
+        $user = Socialite::driver('linkedin')->user();
+
+
+        $token = $user->token;
+        $Id = $user->getid();
+        $Name = $user->getName();
+        $Email = $user->getEmail();
+        session(['email' => $Email]);
+//        echo "<pre>";
+//        print_r($Id);
+//         echo "</pre>";
+//         exit;
+//        echo $Name;
+//        echo $token."<br>";
+//        echo $Id;
+
+        $table = DB::table('AdminLTE')->select('email')->where('email', '=', $Email)->count();
+//        //$tablevalue = json_decode(json_encode($table), true);
+//        //print_r($table);
+//        //echo $table;
+////echo $datatable,"<br><br>";
+        if ($table == 0) {
+
+            DB::table('AdminLTE')->where('email', "=", $Email)->insert(['FullName' => $Name, 'Socialite_ID' => $Id, 'email' => $Email]);
+            $Insert = DB::table('AdminLTE')->where('email', '=', $Email)->get();
+            $Insert = json_decode(json_encode($Insert), true);
+            //print_r($Insert);
+        } else {
+
+            DB::table('AdminLTE')->where('email', "=", $Email)->update(['FullName' => $Name, 'Socialite_ID' => $Id]);
+            $Update = DB::table('AdminLTE')->where('email', '=', $Email)->get();
+            $Update = json_decode(json_encode($Update), true);
+//print_r($Update);
+        }
+
+        $user['useragent'] = $request->server('HTTP_USER_AGENT');
+        $input['ip'] = $request->ip();
+
+        // print_r($user);
+        // print_r($input);
+        $user['useragent'] = $request->server('HTTP_USER_AGENT');
+        $input['ip'] = $request->ip();
+
+//                    print_r($user);
+//          print_r($input);
+
+
+
+        $u_agent = $_SERVER['HTTP_USER_AGENT'];
+        $bname = 'Unknown';
+        $platform = 'Unknown';
+        $version = "";
+
+
+        $ipAddress = $_SERVER['REMOTE_ADDR'];
+        if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+            $ipAddress = array_pop(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
+        }
+
+
+
+        //First get the platform?
+        if (preg_match('/linux/i', $u_agent)) {
+            $platform = 'linux';
+        } elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
+            $platform = 'mac';
+        } elseif (preg_match('/windows|win32/i', $u_agent)) {
+            $platform = 'windows';
+        }
+
+        // Next get the name of the useragent yes seperately and for good reason
+        if (preg_match('/MSIE/i', $u_agent) && !preg_match('/Opera/i', $u_agent)) {
+            $bname = 'Internet Explorer';
+            $ub = "MSIE";
+        } elseif (preg_match('/Firefox/i', $u_agent)) {
+            $bname = 'Mozilla Firefox';
+            $ub = "Firefox";
+        } elseif (preg_match('/Chrome/i', $u_agent)) {
+            $bname = 'Google Chrome';
+            $ub = "Chrome";
+        } elseif (preg_match('/Safari/i', $u_agent)) {
+            $bname = 'Apple Safari';
+            $ub = "Safari";
+        } elseif (preg_match('/Opera/i', $u_agent)) {
+            $bname = 'Opera';
+            $ub = "Opera";
+        } elseif (preg_match('/Netscape/i', $u_agent)) {
+            $bname = 'Netscape';
+            $ub = "Netscape";
+        }
+
+        // finally get the correct version number
+        $known = array('Version', $ub, 'other');
+        $pattern = '#(?<browser>' . join('|', $known) .
+                ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+        if (!preg_match_all($pattern, $u_agent, $matches)) {
+            // we have no matching number just continue
+        }
+
+        // see how many we have
+        $i = count($matches['browser']);
+        if ($i != 1) {
+            //we will have two since we are not using 'other' argument yet
+            //see if version is before or after the name
+            if (strripos($u_agent, "Version") < strripos($u_agent, $ub)) {
+                $version = $matches['version'][0];
+            } else {
+                $version = $matches['version'][1];
+            }
+        } else {
+            $version = $matches['version'][0];
+        }
+
+        // check if we have a number
+        if ($version == null || $version == "") {
+            $version = "?";
+        }
+        $yourbrowser = ['userAgent' => $u_agent, 'name' => $bname, 'version' => $version, 'platform' => $platform, 'pattern' => $pattern];
+        $jsonDetails = json_encode($yourbrowser);
+
+        DB::table('Logs')->insert(['BrowserDetails' => $jsonDetails, 'BrowserName' => $yourbrowser['name'], 'BrowserVersion' => $yourbrowser['version'], 'BrowserPlateform' => $yourbrowser['platform'], 'BrowserPattern' => $yourbrowser['pattern'], 'IPAddress' => $input['ip'], 'UserName' => $Email]);
+
+
+        return view('welcome');
+    }
+
+    public function redirectToGoogle() {
+
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function googleCallback(Request $request) {
+        session()->regenerate();
+
+        $user = Socialite::driver('google')->user();
+
+
+        $token = $user->token;
+        $Id = $user->getId();
+        $Name = $user->getName();
+        $Email = $user->getEmail();
+        session(['email' => $Email]);
+//         echo "<pre>";
+//         print_r($user);
+//         echo "</pre>";
+//         exit;
+//        echo $Name;
+//        echo $token."<br>";
+//        echo $Id;
+
+        $table = DB::table('AdminLTE')->select('email')->where('email', '=', $Email)->count();
+//        //$tablevalue = json_decode(json_encode($table), true);
+//        //print_r($table);
+//        //echo $table;
+////echo $datatable,"<br><br>";
+        if ($table == 0) {
+
+            DB::table('AdminLTE')->where('email', "=", $Email)->insert(['FullName' => $Name, 'Socialite_ID' => $Id, 'email' => $Email]);
+            $Insert = DB::table('AdminLTE')->where('email', '=', $Email)->get();
+            $Insert = json_decode(json_encode($Insert), true);
+            //print_r($Insert);
+        } else {
+
+            DB::table('AdminLTE')->where('email', "=", $Email)->update(['FullName' => $Name, 'Socialite_ID' => $Id]);
+            $Update = DB::table('AdminLTE')->where('email', '=', $Email)->get();
+            $Update = json_decode(json_encode($Update), true);
+//print_r($Update);
+        }
+
+        $user['useragent'] = $request->server('HTTP_USER_AGENT');
+        $input['ip'] = $request->ip();
+
+        // print_r($user);
+        // print_r($input);
+        $user['useragent'] = $request->server('HTTP_USER_AGENT');
+        $input['ip'] = $request->ip();
+
+//                    print_r($user);
+//          print_r($input);
+
+
+
+        $u_agent = $_SERVER['HTTP_USER_AGENT'];
+        $bname = 'Unknown';
+        $platform = 'Unknown';
+        $version = "";
+
+
+        $ipAddress = $_SERVER['REMOTE_ADDR'];
+        if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+            $ipAddress = array_pop(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
+        }
+
+
+
+        //First get the platform?
+        if (preg_match('/linux/i', $u_agent)) {
+            $platform = 'linux';
+        } elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
+            $platform = 'mac';
+        } elseif (preg_match('/windows|win32/i', $u_agent)) {
+            $platform = 'windows';
+        }
+
+        // Next get the name of the useragent yes seperately and for good reason
+        if (preg_match('/MSIE/i', $u_agent) && !preg_match('/Opera/i', $u_agent)) {
+            $bname = 'Internet Explorer';
+            $ub = "MSIE";
+        } elseif (preg_match('/Firefox/i', $u_agent)) {
+            $bname = 'Mozilla Firefox';
+            $ub = "Firefox";
+        } elseif (preg_match('/Chrome/i', $u_agent)) {
+            $bname = 'Google Chrome';
+            $ub = "Chrome";
+        } elseif (preg_match('/Safari/i', $u_agent)) {
+            $bname = 'Apple Safari';
+            $ub = "Safari";
+        } elseif (preg_match('/Opera/i', $u_agent)) {
+            $bname = 'Opera';
+            $ub = "Opera";
+        } elseif (preg_match('/Netscape/i', $u_agent)) {
+            $bname = 'Netscape';
+            $ub = "Netscape";
+        }
+
+        // finally get the correct version number
+        $known = array('Version', $ub, 'other');
+        $pattern = '#(?<browser>' . join('|', $known) .
+                ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+        if (!preg_match_all($pattern, $u_agent, $matches)) {
+            // we have no matching number just continue
+        }
+
+        // see how many we have
+        $i = count($matches['browser']);
+        if ($i != 1) {
+            //we will have two since we are not using 'other' argument yet
+            //see if version is before or after the name
+            if (strripos($u_agent, "Version") < strripos($u_agent, $ub)) {
+                $version = $matches['version'][0];
+            } else {
+                $version = $matches['version'][1];
+            }
+        } else {
+            $version = $matches['version'][0];
+        }
+
+        // check if we have a number
+        if ($version == null || $version == "") {
+            $version = "?";
+        }
+        $yourbrowser = ['userAgent' => $u_agent, 'name' => $bname, 'version' => $version, 'platform' => $platform, 'pattern' => $pattern];
+        $jsonDetails = json_encode($yourbrowser);
+
+        DB::table('Logs')->insert(['BrowserDetails' => $jsonDetails, 'BrowserName' => $yourbrowser['name'], 'BrowserVersion' => $yourbrowser['version'], 'BrowserPlateform' => $yourbrowser['platform'], 'BrowserPattern' => $yourbrowser['pattern'], 'IPAddress' => $input['ip'], 'UserName' => $Email]);
+
+
+        return view('welcome');
+    }
+    
+    
+    
+    
+//    practice ------------------DataTAbles-------------------------------
+//    ---------------------------------------------------------------------
+    
+    public function testdatatable()
+    {
+        return view('AdminLTE/testdatatable');
+    }
+    
+    public function ajaxcall(Request $request)
+    {
+        $lenght=$request->input('length');
+        $start=$request->input('start');
+        $search=$request->input('search');
+       $ajax= DB::table('TimeZone')->select('*')->limit($lenght)->offset($start)->get();
+       $ajax=  json_encode($ajax);
+       echo "{\"data\":".$ajax."}";
     }
 
 }
