@@ -215,6 +215,19 @@ Route::get('ajaxcall', array(
     'uses' => 'AdminController@ajaxcall'
 ));
 
+Route::get('countries', array(
+    'as' => 'countries',
+    'uses' => 'AdminController@countries'
+));
+Route::get('State', array(
+    'as' => 'State',
+    'uses' => 'AdminController@State'
+));
+Route::get('City', array(
+    'as' => 'City',
+    'uses' => 'AdminController@City'
+));
+
 
 
 

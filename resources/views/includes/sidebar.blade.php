@@ -43,7 +43,11 @@
 
                     <li class="active"><a href='{{URL::Route('TimeZone')}}'><i class="fa fa-circle-o"></i> Time Zone</a>
 
-                    </li>
+                        <!--                    </li>
+                                            
+                                            <li class="active"><a href='{{URL::Route('testdatatable')}}'><i class="fa fa-circle-o"></i>Test Time Zone</a>
+                        
+                                            </li>-->
 
 
 

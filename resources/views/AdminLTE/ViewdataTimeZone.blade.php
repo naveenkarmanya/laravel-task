@@ -6,7 +6,7 @@
 
 
 
-<table id="timeZone" class="table table-striped table-bordered" cellspacing="0" width="100%">
+<table id="view" class="table table-striped table-bordered" cellspacing="0" width="100%">
 
 
 

@@ -35,16 +35,16 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
 
-
-
-
-
-
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
-        <link href="/css/bootstrap.min.css" type="text/css">
         <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" type="text/css"> 
 
+
+
+
+        <!--        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        
+                <link href="/css/bootstrap.min.css" type="text/css">
+                <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" type="text/css"> 
+        -->
 
         <style>
             html, body {
@@ -157,7 +157,7 @@
 
 
     </head>
-    <body class="skin-blue sidebar-mini" data-spy="scroll" data-target=".navbar" data-offset="50">
+    <body class="skin-blue sidebar-mini sidebar-open" data-spy="scroll" data-target=".navbar" data-offset="50">
         <div class="wrapper">
 
 
@@ -184,23 +184,7 @@
 
 
 
-            <!--            <div class="content-wrapper">
-                             Content Header (Page header) 
-                            <section class="content-header">
-                                <h1>
-                                User Profile
-                                <small>Control panel</small>
-                                </h1>
-                                <ol class="breadcrumb">
-                                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                                    <li class="active">User Profile</li>
-                                </ol>
-                            </section>
-                             Main content 
-                            <section class="content">
-                                @yield('contents')
-                            </section> /.content 
-                        </div>-->
+
 
 
             <footer class="main-footer">
@@ -267,18 +251,15 @@ $.widget.bridge('uibutton', $.ui.button);
 
         <script src='/js/progress.js' type="text/javascript"></script>
 
-
-
-        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript" ></script>
-        <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js" type="text/javascript" ></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+        <script src="/js/datatable.js" type="text/javascript"></script>
 
         <script>
 $(document).ready(function () {
-    $('#timeZone').dataTable({
-        "sPaginationType": "full_numbers"
-
-    });
-
+//    $('#timeZone').dataTable({
+//        "sPaginationType": "full_numbers"
+//
+//    });
     var table = $('#timeZone').DataTable();
     $('#timeZone tbody').on('click', '#edit', function () {
 //        var data = table.row( this ).data();
@@ -306,8 +287,8 @@ $(document).ready(function () {
         //alert( 'You clicked on '+data[1]+'\'s row' );
     });
 });
-
         </script>
+
 
 
 

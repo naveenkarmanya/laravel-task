@@ -22,6 +22,10 @@ use App\TimeZone;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use Socialite;
+use App\Continents;
+use App\Country;
+use App\State;
+use App\City;
 
 class AdminController extends Controller {
 
@@ -88,7 +92,7 @@ class AdminController extends Controller {
         $State = Input::get('state');
         $Phone = Input::get('phone');
         $Email = Input::get('email');
-        // $AccountNumber = Input::get('AccountNumber');
+        $AccountNumber = Input::get('AccountNumber');
         $_len = 20;
         $type = 'alpha_numeric';
 
@@ -106,7 +110,7 @@ class AdminController extends Controller {
             $password .= substr($_container, $_rand, 1);                // returns part of the string [ high tensile strength ;) ] 
         }
 
-//    return $password;       // Returns the generated Pass
+//    return $password;       
 //print_r($password);
         $hashed_random_password = md5($password);
         // print_r($hashed_random_password);
@@ -414,11 +418,6 @@ class AdminController extends Controller {
 
     public function DataTablePage() {
 
-
-
-
-
-
         $upload = DB::table('FileUpload')->select("*")->get();
         $upload = json_decode(json_encode($upload), true);
 
@@ -439,8 +438,6 @@ class AdminController extends Controller {
 
 
         $Email = Input::get('email');
-
-
 
 //        print_r($hashed);
         $Update = DB::table('AdminLTE')->select('Password')->where('email', '=', $Email)->get();
@@ -471,13 +468,11 @@ class AdminController extends Controller {
 
 
                 DB::table('TimeZone')->insert(['Name' => $name, 'Offset' => $offset]);
-                $User = DB::table('TimeZone')->select("*")->get();
-
-
-                $User = json_decode(json_encode($User), true);
+                //$User = DB::table('TimeZone')->select("*")->get();
+                //$User = json_decode(json_encode($User), true);
 // print_r($User);
 
-                return view('AdminLTE/TimeZone', compact('User'));
+                return view('AdminLTE/TimeZone');
 
 
 //print_r(timezone_abbreviations_list());
@@ -669,8 +664,6 @@ class AdminController extends Controller {
 //                    print_r($user);
 //          print_r($input);
 
-
-
         $u_agent = $_SERVER['HTTP_USER_AGENT'];
         $bname = 'Unknown';
         $platform = 'Unknown';
@@ -681,8 +674,6 @@ class AdminController extends Controller {
         if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
             $ipAddress = array_pop(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
         }
-
-
 
         //First get the platform?
         if (preg_match('/linux/i', $u_agent)) {
@@ -744,11 +735,6 @@ class AdminController extends Controller {
         $jsonDetails = json_encode($yourbrowser);
 
         DB::table('Logs')->insert(['BrowserDetails' => $jsonDetails, 'BrowserName' => $yourbrowser['name'], 'BrowserVersion' => $yourbrowser['version'], 'BrowserPlateform' => $yourbrowser['platform'], 'BrowserPattern' => $yourbrowser['pattern'], 'IPAddress' => $input['ip'], 'UserName' => $Email]);
-
-
-
-
-
 
         return view('welcome');
     }
@@ -1020,26 +1006,89 @@ class AdminController extends Controller {
 
         return view('welcome');
     }
-    
-    
-    
-    
+
 //    practice ------------------DataTAbles-------------------------------
 //    ---------------------------------------------------------------------
-    
-    public function testdatatable()
-    {
+
+    public function testdatatable() {
         return view('AdminLTE/testdatatable');
     }
-    
-    public function ajaxcall(Request $request)
-    {
-        $lenght=$request->input('length');
-        $start=$request->input('start');
-        $search=$request->input('search');
-       $ajax= DB::table('TimeZone')->select('*')->limit($lenght)->offset($start)->get();
-       $ajax=  json_encode($ajax);
-       echo "{\"data\":".$ajax."}";
+
+    public function ajaxcall(Request $request) {
+        $lenght = $request->input('length');
+        $start = $request->input('start');
+        $search = $request->input('search');
+        $order = $request->input('order');
+        $column = $request->input('columns');
+        // if($search['value']=="" && $order[0]['dir']==""){
+        $ajax = DB::table('TimeZone')->select('*')->limit($lenght)->offset($start)->get();
+        $ajax = json_encode($ajax);
+        $count = DB::table('TimeZone')->count();
+        echo "{\"recordsTotal\":" . $count . ",\"recordsFiltered\":" . $count . ", \"data\":" . $ajax . "}";
+//       echo "{\"data\":".$ajax."}";
+//       if($order[0]['dir']!="" && $search['value']=="" ){
+//         $data=$column[$order[0]['column']]['data'];
+//         $data=$order[0]['dir'];
+//        $join=DB::table('TimeZone') ->select('TimeZone.Id','TimeZone.Name','TimeZone.Offset','TimeZone.Created')
+//               ->orderBy("TimeZone."."$data","$asc")
+//                     ->limit($length)->offset($offset)->get();
+//        
+//        $data=  json_encode($join);
+//        $count=DB::table('TimeZone')->count();
+//       echo "{\"recordsTotal\":".$count.",\"recordsFiltered\":".$count.", \"data\":" . $data . "}";
+//        }
+    }
+
+    public function countries() {
+        $CountryData = Country::find(1)->first()->Continent;
+        $CountryData2 = Continents::find(1)->first()->Country;
+      //echo $CountryData2;
+        
+        echo "Data from Continent To Country is =>  " ."<B>".$CountryData['Name']."</B>"."<br>";
+       
+         foreach ($CountryData2 as $value => $keys) {
+           
+            echo "<p><u>Data from Country To Continent </u></p> :-" .$keys['ID'] ."  " ."<B>".$keys['Name']."</B>"."<br>";
+            
+        }
+        
+//        dd($countryData);
+    }
+
+    public function State() {
+        $StateData = State::find(1)->first()->Country;
+        $StateData2 = Country::find(1)->first()->State;
+         echo "Data from State To Country is =>  " ."<B>".$StateData['Name']."</B>"."<br>";
+       
+         foreach ($StateData2 as $value => $keys) {
+           
+            echo "<p><u>Data from Country To State </u></p> :-" .$keys['ID'] ."  " ."<B>".$keys['Name']."</B>"."<br>";
+            
+        }
+        //dd($StateData);
+    }
+
+    public function City() {
+        $CityData = State::find(1)->first()->City;
+        $CityData2 = City::find(1)->first()->State;
+//       $CityData = json_encode($CityData);
+        //echo $CityData;
+        foreach ($CityData as $value => $key) {
+           
+            echo "<p><u>Data from State To City </u></p> :-" .$key['ID'] ."  " ."<B>".$key['Name']."</B>"."<br>";
+            
+        }
+         
+           
+            echo "Data from City To State is =>  " ."<B>".$CityData2['Name']."</B>"."<br>";
+            
+       
+        
+        
+        
+        
+        
+        
     }
 
 }

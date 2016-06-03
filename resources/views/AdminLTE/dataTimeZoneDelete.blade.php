@@ -6,7 +6,7 @@
 
 
 
-<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+<table id="delete" class="table table-striped table-bordered" cellspacing="0" width="100%">
 
 
 
@@ -22,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-        
+
         @foreach($User as $value)
 
 
