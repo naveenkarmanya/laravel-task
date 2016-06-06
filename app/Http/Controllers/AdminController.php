@@ -440,18 +440,42 @@ class AdminController extends Controller {
         $Email = Input::get('email');
 
 //        print_r($hashed);
-        $Update = DB::table('AdminLTE')->select('Password')->where('email', '=', $Email)->get();
-        $User = json_decode(json_encode($Update), true);
+        DB::table('AdminLTE')->select('Password')->where('email', '=', $Email)->get();
+        $_len = 20;
+        $type = 'alpha_numeric';
 
-        foreach ($User as $Users)
-            foreach ($Users as $value)
-                print_r($value);
+        $_alphaSmall = 'abcdefghijklmnopqrstuvwxyz';            // small letters
+        $_alphaCaps = strtoupper($_alphaSmall);                // CAPITAL LETTERS
+        $_numerics = '1234567890';                            // numerics
+        $_specialChars = '`~!@#$%^&*()-_=+]}[{;:,<.>/?\'"\|';   // Special Characters
+        $unixTimeStamp = time();
 
-        Mail::send('email/PasswordNew', array('value' => $value), function($message)use($Email) {
+        $_container = $_alphaSmall . $_alphaCaps . $unixTimeStamp . $_numerics . $_specialChars;   // Contains all characters
+        $password = '';         // will contain the desired pass
+
+        for ($i = 0; $i < $_len; $i++) {                                 // Loop till the length mentioned
+            $_rand = rand(0, strlen($_container) - 1);                  // Get Randomized Length
+            $password .= substr($_container, $_rand, 1);                // returns part of the string [ high tensile strength ;) ] 
+        }
+
+//    return $password;       
+        print_r($password);
+        $hashed_random_password = md5($password);
+        // print_r($hashed_random_password);
+
+        $Update = DB::table('AdminLTE')->where('email', '=', $Email)->update(['Password' => $hashed_random_password]);
+
+
+
+
+        $Update = json_decode(json_encode($Update), true);
+
+
+        Mail::send('email/PasswordNew', array('value' => $password), function($message)use($Email) {
             $message->to($Email, 'naveen')->subject('test mail');
         });
 
-        return view('AdminLTE/index', compact('User'));
+        return view('AdminLTE/index');
     }
 
     public function TimeZone() {
@@ -1042,28 +1066,26 @@ class AdminController extends Controller {
     public function countries() {
         $CountryData = Country::find(1)->first()->Continent;
         $CountryData2 = Continents::find(1)->first()->Country;
-      //echo $CountryData2;
-        
-        echo "Data from Continent To Country is =>  " ."<B>".$CountryData['Name']."</B>"."<br>";
-       
-         foreach ($CountryData2 as $value => $keys) {
-           
-            echo "<p><u>Data from Country To Continent </u></p> :-" .$keys['ID'] ."  " ."<B>".$keys['Name']."</B>"."<br>";
-            
+        //echo $CountryData2;
+
+        echo "Data from Continent To Country is =>  " . "<B>" . $CountryData['Name'] . "</B>" . "<br>";
+
+        foreach ($CountryData2 as $value => $keys) {
+
+            echo "<p><u>Data from Country To Continent </u></p> :-" . $keys['ID'] . "  " . "<B>" . $keys['Name'] . "</B>" . "<br>";
         }
-        
+
 //        dd($countryData);
     }
 
     public function State() {
         $StateData = State::find(1)->first()->Country;
         $StateData2 = Country::find(1)->first()->State;
-         echo "Data from State To Country is =>  " ."<B>".$StateData['Name']."</B>"."<br>";
-       
-         foreach ($StateData2 as $value => $keys) {
-           
-            echo "<p><u>Data from Country To State </u></p> :-" .$keys['ID'] ."  " ."<B>".$keys['Name']."</B>"."<br>";
-            
+        echo "Data from State To Country is =>  " . "<B>" . $StateData['Name'] . "</B>" . "<br>";
+
+        foreach ($StateData2 as $value => $keys) {
+
+            echo "<p><u>Data from Country To State </u></p> :-" . $keys['ID'] . "  " . "<B>" . $keys['Name'] . "</B>" . "<br>";
         }
         //dd($StateData);
     }
@@ -1074,21 +1096,12 @@ class AdminController extends Controller {
 //       $CityData = json_encode($CityData);
         //echo $CityData;
         foreach ($CityData as $value => $key) {
-           
-            echo "<p><u>Data from State To City </u></p> :-" .$key['ID'] ."  " ."<B>".$key['Name']."</B>"."<br>";
-            
+
+            echo "<p><u>Data from State To City </u></p> :-" . $key['ID'] . "  " . "<B>" . $key['Name'] . "</B>" . "<br>";
         }
-         
-           
-            echo "Data from City To State is =>  " ."<B>".$CityData2['Name']."</B>"."<br>";
-            
-       
-        
-        
-        
-        
-        
-        
+
+
+        echo "Data from City To State is =>  " . "<B>" . $CityData2['Name'] . "</B>" . "<br>";
     }
 
 }
