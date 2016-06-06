@@ -14,4 +14,14 @@ class Continents extends Model
     public function Country() {
         return $this->hasMany("App\Country", "Continent_ID", "ID");
     }
+    public function StateThrough()
+    {
+        return $this->hasManyThrough('App\Continents', 'App\Country','Continent_ID','ID');
+    }
+    
+     public function photos()
+    {
+        return $this->morphMany('App\Photo', 'Imageable');
+    }
+
 }

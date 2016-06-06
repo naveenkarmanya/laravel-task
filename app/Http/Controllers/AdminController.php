@@ -26,6 +26,9 @@ use App\Continents;
 use App\Country;
 use App\State;
 use App\City;
+use App\Photos;
+use App\Staff;
+use App\Product;
 
 class AdminController extends Controller {
 
@@ -1039,28 +1042,53 @@ class AdminController extends Controller {
     }
 
     public function ajaxcall(Request $request) {
-        $lenght = $request->input('length');
+        $length = $request->input('length');
         $start = $request->input('start');
         $search = $request->input('search');
         $order = $request->input('order');
         $column = $request->input('columns');
         // if($search['value']=="" && $order[0]['dir']==""){
-        $ajax = DB::table('TimeZone')->select('*')->limit($lenght)->offset($start)->get();
-        $ajax = json_encode($ajax);
-        $count = DB::table('TimeZone')->count();
-        echo "{\"recordsTotal\":" . $count . ",\"recordsFiltered\":" . $count . ", \"data\":" . $ajax . "}";
-//       echo "{\"data\":".$ajax."}";
-//       if($order[0]['dir']!="" && $search['value']=="" ){
-//         $data=$column[$order[0]['column']]['data'];
-//         $data=$order[0]['dir'];
-//        $join=DB::table('TimeZone') ->select('TimeZone.Id','TimeZone.Name','TimeZone.Offset','TimeZone.Created')
-//               ->orderBy("TimeZone."."$data","$asc")
-//                     ->limit($length)->offset($offset)->get();
-//        
-//        $data=  json_encode($join);
-//        $count=DB::table('TimeZone')->count();
-//       echo "{\"recordsTotal\":".$count.",\"recordsFiltered\":".$count.", \"data\":" . $data . "}";
-//        }
+//        $ajax = DB::table('TimeZone')->select('*')->limit($lenght)->offset($start)->get();
+//        $ajax = json_encode($ajax);
+//        $count = DB::table('TimeZone')->count();
+//        echo "{\"recordsTotal\":" . $count . ",\"recordsFiltered\":" . $count . ", \"data\":" . $ajax . "}";
+//      // echo "{\"data\":".$ajax."}";
+        if ($search['value'] == "" && $order[0]['dir'] == "") {
+
+            //$data = Country::limit($length)->offset($offset)->get();
+            $join = DB::table('TimeZone')->select('TimeZone.Id', 'TimeZone.Name', 'TimeZone.Offset', 'TimeZone.Created')
+                            ->orderBy("TimeZone." . "$data", "$asc")
+                            ->limit($length)->offset($start)->get();
+            $data = json_encode($join);
+            $count = DB::table('TimeZone')->count();
+            echo "{\"recordsTotal\":" . $count . ",\"recordsFiltered\":" . $count . ", \"data\":" . $data . "}";
+        }
+        if ($order[0]['dir'] != "" && $search['value'] == "") {
+            $data = $column[$order[0]['column']]['data'];
+            $asc = $order[0]['dir'];
+            $join = DB::table('TimeZone')->select('TimeZone.Id', 'TimeZone.Name', 'TimeZone.Offset', 'TimeZone.Created')
+                            ->orderBy("TimeZone." . "$data", "$asc")
+                            ->limit($length)->offset($start)->get();
+
+            $data = json_encode($join);
+            $count = DB::table('TimeZone')->count();
+            echo "{\"recordsTotal\":" . $count . ",\"recordsFiltered\":" . $count . ", \"data\":" . $data . "}";
+        } else {
+            $data = $column[$order[0]['column']]['data'];
+            $asc = $order[0]['dir'];
+            $join = DB::table('TimeZone')->select('TimeZone.Id', 'TimeZone.Name', 'TimeZone.Offset', 'TimeZone.Created')
+                    ->orderBy("TimeZone." . "$data", "$asc")
+                    ->limit($length)->offset($start)->where('TimeZone.Id', 'like', $search['value'] . '%')
+                    ->orwhere('TimeZone.Name', 'like', $search['value'] . '%')
+                    ->orwhere('TimeZone.Offset', 'like', $search['value'] . '%')
+                    ->orwhere('TimeZone.Created', 'like', $search['value'] . '%')
+                    ->orderBy("TimeZone." . "$data", "$asc")
+                    ->get();
+
+            $data = json_encode($join);
+            $count = DB::table('TimeZone')->count();
+            echo "{\"recordsTotal\":" . $count . ",\"recordsFiltered\":" . $count . ", \"data\":" . $data . "}";
+        }
     }
 
     public function countries() {
@@ -1081,11 +1109,11 @@ class AdminController extends Controller {
     public function State() {
         $StateData = State::find(1)->first()->Country;
         $StateData2 = Country::find(1)->first()->State;
-        echo "Data from State To Country is =>  " . "<B>" . $StateData['Name'] . "</B>" . "<br>";
+        echo "Data from State To Country Using BelongsTo =>  " . "<B>" . $StateData['Name'] . "</B>" . "<br>";
 
         foreach ($StateData2 as $value => $keys) {
 
-            echo "<p><u>Data from Country To State </u></p> :-" . $keys['ID'] . "  " . "<B>" . $keys['Name'] . "</B>" . "<br>";
+            echo "<p><u>Data from Country To State Using HasMany</u></p> :-" . $keys['ID'] . "  " . "<B>" . $keys['Name'] . "</B>" . "<br>";
         }
         //dd($StateData);
     }
@@ -1093,8 +1121,8 @@ class AdminController extends Controller {
     public function City() {
         $CityData = State::find(1)->first()->City;
         $CityData2 = City::find(1)->first()->State;
-//       $CityData = json_encode($CityData);
-        //echo $CityData;
+//      $CityData = json_encode($CityData);
+        // dd($CityData);
         foreach ($CityData as $value => $key) {
 
             echo "<p><u>Data from State To City </u></p> :-" . $key['ID'] . "  " . "<B>" . $key['Name'] . "</B>" . "<br>";
@@ -1102,6 +1130,24 @@ class AdminController extends Controller {
 
 
         echo "Data from City To State is =>  " . "<B>" . $CityData2['Name'] . "</B>" . "<br>";
+    }
+
+    public function Continents() {
+        $Statepost = Continents::find(1)->first()->StateThrough;
+        // dd($Statepost);
+        foreach ($Statepost as $value => $key) {
+
+            echo "<p><u>Using HasManyThrough </u></p> :-" . $key['ID'] . "  " . "<B>" . $key['Name'] . "</B>" . "<br>";
+        }
+    }
+
+    public function polymorphic() {
+        $staff = Staff::find(1);
+      //  dd($staff);
+        echo $staff;
+//        foreach ($staff->photos as $photo=>$key) {
+//           echo "<p><u>Using HasManyThrough </u></p> :-" . $key['Id'] . "  " . "<B>" . $key['Name'] . "</B>" . "<br>";
+//        }
     }
 
 }

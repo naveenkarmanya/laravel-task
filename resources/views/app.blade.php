@@ -7,10 +7,10 @@
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- Bootstrap 3.3.2 -->
         <link href="{{ asset('/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-        <!-- FontAwesome 4.3.0 -->
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <!-- Ionicons 2.0.0 -->
-        <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
         <!-- Theme style -->
         <link href="{{ asset('/dist/css/AdminLTE.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -30,21 +30,15 @@
         <link href="{{ asset('/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
+<!--        [if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
 
-        <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" type="text/css"> 
 
 
-
-
-        <!--        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        
-                <link href="/css/bootstrap.min.css" type="text/css">
-                <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" type="text/css"> 
-        -->
+        <!--        <link href="/css/bootstrap.min.css" type="text/css">
+-->                <link href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" type="text/css">
 
         <style>
             html, body {
@@ -194,10 +188,11 @@
                 <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
             </footer>
         </div><!-- ./wrapper -->
-        <script src="/js/jquery.min.js" type="text/javascript" ></script>
-        <!-- jQuery 2.1.3 -->
-<!--        <script src="{{ asset('/plugins/jQuery/jQuery-2.1.3.min.js') }}"></script>-->
-        <!-- jQuery UI 1.11.2 -->
+<!--        <script src="/js/jquery.min.js" type="text/javascript" ></script>-->
+       
+<!--         jQuery 2.1.3 
+-->        <script src="{{ asset('/plugins/jQuery/jQuery-2.2.0.min.js') }}"></script><!--
+         jQuery UI 1.11.2 -->
         <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
@@ -245,12 +240,12 @@ $.widget.bridge('uibutton', $.ui.button);
 
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
-        <script src="http://malsup.github.com/jquery.form.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.js"></script>
 
 
 
         <script src='/js/progress.js' type="text/javascript"></script>
-
+        <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" type="text/css">
         <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
         <script src="/js/datatable.js" type="text/javascript"></script>
 

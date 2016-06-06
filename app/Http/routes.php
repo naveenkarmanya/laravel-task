@@ -227,6 +227,15 @@ Route::get('City', array(
     'as' => 'City',
     'uses' => 'AdminController@City'
 ));
+Route::get('Continents', array(
+    'as' => 'Continents',
+    'uses' => 'AdminController@Continents'
+));
+
+Route::get('polymorphic', array(
+    'as' => 'polymorphic',
+    'uses' => 'AdminController@polymorphic'
+));
 
 
 
