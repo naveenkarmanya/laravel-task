@@ -1143,11 +1143,17 @@ class AdminController extends Controller {
 
     public function polymorphic() {
         $staff = Staff::find(1);
-      //  dd($staff);
+         $product = Product::find(1);
+         $photo = Photos::find(1);
+       echo $product."<br><br>";
+        //  dd($staff);
+       echo $photo."<br><br>";
         echo $staff;
 //        foreach ($staff->photos as $photo=>$key) {
 //           echo "<p><u>Using HasManyThrough </u></p> :-" . $key['Id'] . "  " . "<B>" . $key['Name'] . "</B>" . "<br>";
 //        }
     }
+
+
 
 }
